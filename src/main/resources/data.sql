@@ -1,0 +1,11 @@
+INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD) VALUES ('Daniels','Jack','jdaniel','whisky')
+INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD) VALUES ('Morgan','Captain','cmorgan','rhum')
+INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD) VALUES ('Meister','Jager','jmeister','liqueur')
+
+--INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,IDROLE) VALUES ('Daniels','Jack','jdaniel','whisky',1)
+--INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,IDROLE) VALUES ('Morgan','Captain','cmorgan','rhum',2)
+--INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,IDROLE) VALUES ('Meister','Jager','jmeister','liqueur',3)
+
+INSERT INTO ROLE (LIBELLE) VALUES ('Étudiant')
+INSERT INTO ROLE (LIBELLE) VALUES ('Directeur Établissement')
+INSERT INTO ROLE (LIBELLE) VALUES ('Directeur Études')
