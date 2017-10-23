@@ -1,6 +1,14 @@
-package com.projetFinal.projetFinal.model;
+package com.projetFinal.model.metier;
 
-public class Personne {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Personne {	
+	@Id
+	@GeneratedValue
+	private Integer id;
 	
 	private String nom;
 	private String prenom;
@@ -8,12 +16,21 @@ public class Personne {
 	private String password;
 	private Role role;
 	
-	public Personne(String nom, String prenom, String login, String password, Role role) {
+	public Personne(Integer id, String nom, String prenom, String login, String password, Role role) {
+		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.login = login;
 		this.password = password;
 		this.role = role;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNom() {
