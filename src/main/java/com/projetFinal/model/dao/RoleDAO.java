@@ -1,7 +1,10 @@
 package com.projetFinal.model.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -14,8 +17,9 @@ public class RoleDAO {
 	@PersistenceContext
 	EntityManager em;
 
-	public Role readFirst() {
-		return null;
-		//return em.find(Personne.class, );
+	public List<Role> readFirst() {
+		TypedQuery<Role> q = em.createQuery("select r from Role r", Role.class);
+		List<Role> list = q.getResultList();
+		return list;
 	}
 }

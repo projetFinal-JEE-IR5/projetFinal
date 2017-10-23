@@ -3,21 +3,22 @@ package com.projetFinal.model.metier;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Personne {	
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer idPersonne;
 	
 	private String nom;
 	private String prenom;
 	private String login;
 	private String password;
-	private Role role;
+	@Transient private Role role;
 	
-	public Personne(Integer id, String nom, String prenom, String login, String password, Role role) {
-		this.id = id;
+	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Role role) {
+		this.idPersonne = idPersonne;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.login = login;
@@ -25,12 +26,12 @@ public class Personne {
 		this.role = role;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getIdPersonne() {
+		return idPersonne;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdPersonne(Integer id) {
+		this.idPersonne = id;
 	}
 
 	public String getNom() {

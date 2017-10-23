@@ -1,7 +1,10 @@
 package com.projetFinal.model.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -14,8 +17,21 @@ public class PersonneDAO {
 	@PersistenceContext
 	EntityManager em;
 
-	public Personne readFirst() {
-		return null;
-		//return em.find(Personne.class, );
+	public List<Personne> getAllPersonne() {
+		TypedQuery<Personne> q = em.createQuery("select p from Personne p", Personne.class);
+		List<Personne> list = q.getResultList();
+		return list;
+	}
+
+	public void addStudent(Personne personne) {
+		em.persist(personne); // Use EntityManager
+	}
+
+	public Personne getPersonneById(long id) {
+		return em.find(Personne.class, id);
+	}
+
+	public void saveStudent(Personne personne) {
+		em.merge(personne);
 	}
 }
