@@ -17,9 +17,22 @@ public class HomeController {
 	}
 	
 	@PostMapping("/")
-	public String test(@RequestParam Map<String, String> formValues) {
-		System.out.println(formValues.get("login")+formValues.get("password"));
-		return "/homeConnected";
+	public String connexion(@RequestParam Map<String, String> formValues, Map<String, String> model) {
+		String menu="/";
+		String login = formValues.get("login");
+		String password = formValues.get("password");
+		if(login.equals("benjamin") && password.equals("sabaron")) {
+			menu = "/menu1";
+		}
+		if(login.equals("benjamin") && password.equals("marty")) {
+			menu = "/menu2";
+		}
+		if(login.equals("antoine") && password.equals("richard")) {
+			menu = "/menu3";
+		}
+		model.put("login", login);
+		model.put("password", password);
+		return menu;
 	}
 
 }

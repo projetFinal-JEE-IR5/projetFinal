@@ -22,6 +22,12 @@ public class PersonneDAO {
 		List<Personne> list = q.getResultList();
 		return list;
 	}
+	
+	public Personne getPersonneById(int id) {
+		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.id='", Personne.class);
+		Personne personne = q.getSingleResult();
+		return personne;
+	}
 
 	public void addStudent(Personne personne) {
 		em.persist(personne); // Use EntityManager
