@@ -1,6 +1,7 @@
 package com.projetFinal.model.metier;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,10 +13,11 @@ public class Personne {
 	@Id
 	@GeneratedValue
 	private Integer idPersonne;
-	private String nom;
-	private String prenom;
-	private String login;
-	private String password;
+	
+	@Basic private String nom;
+	@Basic private String prenom;
+	@Basic private String login;
+	@Basic private String password;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_ROLE", unique = false)
 	private Role role;
