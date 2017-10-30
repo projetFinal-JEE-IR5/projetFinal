@@ -1,5 +1,6 @@
 package com.projetFinal.model.metier;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +10,7 @@ public class Role {
 	@Id
 	@GeneratedValue
 	private Integer idRole;
-	private String libelle;
+	@Basic private String libelle;
 	
 	public Role(Integer idRole, String libelle) {
 		this.idRole = idRole;

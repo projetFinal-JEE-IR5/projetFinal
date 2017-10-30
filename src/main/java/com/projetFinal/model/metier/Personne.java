@@ -1,5 +1,6 @@
 package com.projetFinal.model.metier;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,10 +12,10 @@ public class Personne {
 	@GeneratedValue
 	private Integer idPersonne;
 	
-	private String nom;
-	private String prenom;
-	private String login;
-	private String password;
+	@Basic private String nom;
+	@Basic private String prenom;
+	@Basic private String login;
+	@Basic private String password;
 	@Transient private Role role;
 	
 	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Role role) {

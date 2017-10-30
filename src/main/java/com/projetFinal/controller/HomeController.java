@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 
-	@GetMapping("/welcome")
-	public String welcome(Map<String, Object> model) {
-		model.put("message", "test");
+	@GetMapping("/")
+	public String welcome(Map<String, String> model) {
+		model.put("message", "Se connecter");
 		return "welcome";
 	}
 	
-	@PostMapping("/welcome")
-	public void test(@RequestParam Map<String, String> formValues) {
+	@PostMapping("/")
+	public String test(@RequestParam Map<String, String> formValues) {
 		System.out.println(formValues.get("login")+formValues.get("password"));
+		return "/homeConnected";
 	}
 
 }
