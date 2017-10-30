@@ -1,37 +1,46 @@
 package com.projetFinal.model.metier;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Personne {	
+public class Personne {
 	@Id
 	@GeneratedValue
 	private Integer idPersonne;
-	
 	private String nom;
 	private String prenom;
 	private String login;
 	private String password;
-	@Transient private Role role;
-	
-	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Role role) {
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ID_ROLE", unique = false)
+	private Role role;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ID_FILIERE", unique = false)
+	private Filiere filiere;
+
+	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Role role,
+			Filiere filiere) {
+		super();
 		this.idPersonne = idPersonne;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.login = login;
 		this.password = password;
 		this.role = role;
+		this.filiere = filiere;
 	}
 
 	public Integer getIdPersonne() {
 		return idPersonne;
 	}
 
-	public void setIdPersonne(Integer id) {
-		this.idPersonne = id;
+	public void setIdPersonne(Integer idPersonne) {
+		this.idPersonne = idPersonne;
 	}
 
 	public String getNom() {
@@ -74,4 +83,11 @@ public class Personne {
 		this.role = role;
 	}
 
+	public Filiere getFiliere() {
+		return filiere;
+	}
+
+	public void setFiliere(Filiere filiere) {
+		this.filiere = filiere;
+	}
 }

@@ -5,23 +5,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Role {
+public class Status {
 	@Id
 	@GeneratedValue
-	private Integer idRole;
+	private Integer idStatus;
 	private String libelle;
 
-	public Role(Integer idRole, String libelle) {
-		this.idRole = idRole;
+	public Status(Integer idRole, String libelle) {
+		this.idStatus = idRole;
 		this.libelle = libelle;
 	}
 
 	public Integer getIdRole() {
-		return idRole;
+		return idStatus;
 	}
 
 	public void setIdRole(Integer idRole) {
-		this.idRole = idRole;
+		this.idStatus = idRole;
 	}
 
 	public String getLibelle() {
