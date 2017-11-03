@@ -10,6 +10,10 @@ public class Status {
 	@GeneratedValue
 	private Integer idStatus;
 	private String libelle;
+	
+	public Status() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Status(Integer idRole, String libelle) {
 		this.idStatus = idRole;

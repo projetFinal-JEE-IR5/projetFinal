@@ -11,6 +11,10 @@ public class Filiere {
 	private Integer idFiliere;
 	private String nomFiliere;
 	private String abreviation;
+	
+	public Filiere() {
+		
+	}
 
 	public Filiere(Integer idRole, String libelle, String abreviation) {
 		this.idFiliere = idRole;
