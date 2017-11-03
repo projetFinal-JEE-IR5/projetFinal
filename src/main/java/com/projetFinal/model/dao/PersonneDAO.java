@@ -36,7 +36,7 @@ public class PersonneDAO {
 		return listePersonne;
 	}
 
-	public void addStudent(Personne personne) {
+	public void addPersonne(Personne personne) {
 		em.persist(personne); // Use EntityManager
 	}
 
@@ -44,7 +44,7 @@ public class PersonneDAO {
 		return em.find(Personne.class, id);
 	}
 
-	public void saveStudent(Personne personne) {
+	public void savePersonne(Personne personne) {
 		em.merge(personne);
 	}
 }
