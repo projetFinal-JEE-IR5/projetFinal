@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.projetFinal.model.metier.Filiere;
+import com.projetFinal.model.metier.Personne;
 import com.projetFinal.model.metier.Status;
 
 @Repository
@@ -17,9 +19,15 @@ public class StatusDAO {
 	@PersistenceContext
 	EntityManager em;
 
-	public List<Status> readFirst() {
+	public List<Status> getAllStatus() {
 		TypedQuery<Status> q = em.createQuery("select s from Status s", Status.class);
 		List<Status> list = q.getResultList();
 		return list;
+	}
+	
+	public Status getStatusById(int id) {
+		TypedQuery<Status> q = em.createQuery("select s from Status s where s.idStatus=:id", Status.class);
+		Status status = q.getSingleResult();
+		return status;
 	}
 }

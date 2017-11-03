@@ -17,9 +17,15 @@ public class RoleDAO {
 	@PersistenceContext
 	EntityManager em;
 
-	public List<Role> readFirst() {
+	public List<Role> getAllRole() {
 		TypedQuery<Role> q = em.createQuery("select r from Role r", Role.class);
 		List<Role> list = q.getResultList();
 		return list;
+	}
+	
+	public Role getRoleById(int id) {
+		TypedQuery<Role> q = em.createQuery("select r from Role r where r.idRole=:id", Role.class);
+		Role role = q.getSingleResult();
+		return role;
 	}
 }
