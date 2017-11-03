@@ -1,7 +1,5 @@
 package com.projetFinal.model.metier;
 
-import java.sql.Timestamp;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,10 +21,10 @@ public class Probleme {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_PERSONNE", unique = false)
 	private Personne personne;
-	private Timestamp dateHeure;
+	private long dateHeure;
 	
 	public Probleme(Integer idProbleme, String objet, String contenu, Integer vote, Status status, Personne personne,
-			Timestamp dateHeure) {
+			long dateHeure) {
 		super();
 		this.idProbleme = idProbleme;
 		this.objet = objet;
@@ -73,10 +71,10 @@ public class Probleme {
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
 	}
-	public Timestamp getDateHeure() {
+	public long getDateHeure() {
 		return dateHeure;
 	}
-	public void setDateHeure(Timestamp dateHeure) {
+	public void setDateHeure(long dateHeure) {
 		this.dateHeure = dateHeure;
 	}
 }
