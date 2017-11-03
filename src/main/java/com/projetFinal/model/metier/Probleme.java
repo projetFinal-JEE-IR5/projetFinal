@@ -23,6 +23,10 @@ public class Probleme {
 	private Personne personne;
 	private long dateHeure;
 	
+	public Probleme() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Probleme(Integer idProbleme, String objet, String contenu, Integer vote, Status status, Personne personne,
 			long dateHeure) {
 		super();

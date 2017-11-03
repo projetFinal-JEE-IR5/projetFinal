@@ -24,6 +24,11 @@ public class Personne {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_FILIERE", unique = false)
 	private Filiere filiere;
+	
+
+	public Personne() {
+		
+	}
 
 	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Role role,
 			Filiere filiere) {

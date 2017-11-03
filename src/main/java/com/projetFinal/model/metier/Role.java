@@ -11,6 +11,10 @@ public class Role {
 	@GeneratedValue
 	private Integer idRole;
 	@Basic private String libelle;
+	
+	public Role() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Role(Integer idRole, String libelle) {
 		this.idRole = idRole;

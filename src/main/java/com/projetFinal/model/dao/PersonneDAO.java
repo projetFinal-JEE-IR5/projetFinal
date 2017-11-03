@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.projetFinal.model.metier.Personne;
 
+
 @Repository
 @Transactional
 public class PersonneDAO {
@@ -24,9 +25,15 @@ public class PersonneDAO {
 	}
 	
 	public Personne getPersonneById(int id) {
-		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.id='", Personne.class);
+		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.id=:id", Personne.class);
 		Personne personne = q.getSingleResult();
 		return personne;
+	}
+	
+	public List<Personne> getPersonneByRole(int idRole) {
+		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.idRole=:idRole", Personne.class);
+		List<Personne> listePersonne = q.getResultList();
+		return listePersonne;
 	}
 
 	public void addPersonne(Personne personne) {
