@@ -25,7 +25,8 @@ public class PersonneDAO {
 	}
 	
 	public Personne getPersonneById(int id) {
-		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.id=:id", Personne.class);
+		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.id_personne=:id", Personne.class);
+		q.setParameter("id_personne", id);
 		Personne personne = q.getSingleResult();
 		return personne;
 	}
