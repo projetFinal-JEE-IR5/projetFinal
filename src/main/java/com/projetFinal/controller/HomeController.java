@@ -18,6 +18,9 @@ public class HomeController {
 	@Autowired
 	private PersonneDAO personneDAO;
 	
+	@Autowired
+	SessionId session;
+	
 	public HomeController() {
 		
 	}
@@ -30,24 +33,28 @@ public class HomeController {
 	
 	@PostMapping("/")
 	public String connexion(@RequestParam Map<String, String> formValues, Map<String, String> model) {
-		String menu="/";
+		model.put("message", "Se connecter");
+		String menu="/welcome";
 		String login = formValues.get("login");
-		String password = formValues.get("password");
+		String password = formValues.get("password");		
 		List<Personne> listePersonne = personneDAO.getAllPersonne();
 		for (Personne personne : listePersonne) {
 			if(personne.getRole().getIdRole()==1) {
 				if(personne.getLogin().equals(login) && personne.getPassword().equals(password)) {
-					menu = "/menu1";
+					session.setCurrentUserId(personne.getIdPersonne());
+					menu = "/menuEtudiant";
 				}
 			}
 			if(personne.getRole().getIdRole()==2) {
 				if(personne.getLogin().equals(login) && personne.getPassword().equals(password)) {
-					menu = "/menu2";
+					session.setCurrentUserId(personne.getIdPersonne());
+					menu = "/menuDirecteurEtab";
 				}
 			}
 			if(personne.getRole().getIdRole()==2) {
 				if(personne.getLogin().equals(login) && personne.getPassword().equals(password)) {
-					menu = "/menu3";
+					session.setCurrentUserId(personne.getIdPersonne());
+					menu = "/menuDirecteurEtud";
 				}
 			}			
 		}
