@@ -4,7 +4,7 @@
 <title>projetFinal jee</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
 
@@ -31,7 +31,7 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1 th:text="${login}+' '+${password}+' connecté'"></h1>
+			<h1>Informations</h1>
 			<div th:text="'prénom : '+${prenom}"></div>
 			<div th:text="'nom : '+${nom}"></div>
 			<div th:text="'role : '+${role}"></div>
@@ -39,9 +39,5 @@
 		</div>
 
 	</div>
-	<!-- /.container -->
-
-	<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 </body>
 </html>

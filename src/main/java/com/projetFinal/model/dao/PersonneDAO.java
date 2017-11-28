@@ -24,14 +24,14 @@ public class PersonneDAO {
 		return list;
 	}
 	
-	public Personne getPersonneById(int id) {
-		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.id_personne=:id", Personne.class);
-		q.setParameter("id_personne", id);
+	public Personne getPersonneById(Integer id) {
+		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.idPersonne=:id", Personne.class);
+		q.setParameter("id", id);
 		Personne personne = q.getSingleResult();
 		return personne;
 	}
 	
-	public List<Personne> getPersonneByRole(int idRole) {
+	public List<Personne> getPersonneByRole(Integer idRole) {
 		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.idRole=:idRole", Personne.class);
 		List<Personne> listePersonne = q.getResultList();
 		return listePersonne;

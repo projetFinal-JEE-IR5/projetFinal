@@ -19,11 +19,7 @@ public class HomeController {
 	private PersonneDAO personneDAO;
 	
 	@Autowired
-	SessionId session;
-	
-	public HomeController() {
-		
-	}
+	private SessionId session;
 
 	@GetMapping("/")
 	public String welcome(Map<String, String> model) {
@@ -51,7 +47,7 @@ public class HomeController {
 					menu = "/menuDirecteurEtab";
 				}
 			}
-			if(personne.getRole().getIdRole()==2) {
+			if(personne.getRole().getIdRole()==3) {
 				if(personne.getLogin().equals(login) && personne.getPassword().equals(password)) {
 					session.setCurrentUserId(personne.getIdPersonne());
 					menu = "/menuDirecteurEtud";
