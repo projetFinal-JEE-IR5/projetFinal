@@ -36,16 +36,10 @@ public class PersonneDAO {
 		List<Personne> listePersonne = q.getResultList();
 		return listePersonne;
 	}
-
-	public void addPersonne(Personne personne) {
-		em.persist(personne); // Use EntityManager
-	}
-
-	public Personne getPersonneById(long id) {
-		return em.find(Personne.class, id);
-	}
-
-	public void savePersonne(Personne personne) {
-		em.merge(personne);
+	
+	public List<Personne> getPersonneByFiliere(int idFiliere) {
+		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.idFiliere=:idFiliere", Personne.class);
+		List<Personne> listePersonne = q.getResultList();
+		return listePersonne;
 	}
 }

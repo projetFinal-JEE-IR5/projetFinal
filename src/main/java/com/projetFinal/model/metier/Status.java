@@ -15,17 +15,17 @@ public class Status {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Status(Integer idRole, String libelle) {
-		this.idStatus = idRole;
+	public Status(Integer idStatus, String libelle) {
+		this.idStatus = idStatus;
 		this.libelle = libelle;
 	}
 
-	public Integer getIdRole() {
+	public Integer getIdStatus() {
 		return idStatus;
 	}
 
-	public void setIdRole(Integer idRole) {
-		this.idStatus = idRole;
+	public void setIdStatus(Integer idStatus) {
+		this.idStatus = idStatus;
 	}
 
 	public String getLibelle() {

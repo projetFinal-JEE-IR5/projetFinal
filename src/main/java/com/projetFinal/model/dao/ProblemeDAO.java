@@ -22,16 +22,22 @@ public class ProblemeDAO {
 		List<Probleme> list = q.getResultList();
 		return list;
 	}
-
-	public void addProbleme(Probleme probleme) {
-		em.persist(probleme); // Use EntityManager
+	
+	public Probleme getProblemeById(int id) {
+		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idProbleme=:id", Probleme.class);
+		Probleme personne = q.getSingleResult();
+		return personne;
 	}
-
-	public Probleme getProblemeById(long id) {
-		return em.find(Probleme.class, id);
+	
+	public List<Probleme> getProblemeByPersonne(int idPersonne) {
+		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idPersonne=:idPersonne", Probleme.class);
+		List<Probleme> list = q.getResultList();
+		return list;
 	}
-
-	public void saveProbleme(Probleme probleme) {
-		em.merge(probleme);
+	
+	public List<Probleme> getProblemeByStatus(int idStatus) {
+		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idStatus=:idStatus", Probleme.class);
+		List<Probleme> list = q.getResultList();
+		return list;
 	}
 }

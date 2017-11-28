@@ -16,8 +16,8 @@ public class Filiere {
 		
 	}
 
-	public Filiere(Integer idRole, String libelle, String abreviation) {
-		this.idFiliere = idRole;
+	public Filiere(Integer idFiliere, String libelle, String abreviation) {
+		this.idFiliere = idFiliere;
 		this.nomFiliere = libelle;
 		this.abreviation = abreviation;
 	}
