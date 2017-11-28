@@ -4,7 +4,7 @@
 <title>projetFinal jee</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
 
@@ -31,8 +31,11 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1 th:text="${login}+' '+${password}+' connecté'"></h1>
-			
+			<h1>Informations étudiants</h1>
+			<select th:field="*{listePersonnes}">
+			    <option value="default">Sélectionner un étudiant</option>
+			    <option th:each="personne : ${listePersonnes}" th:value="${personne.idPersonne}" th:text="${personne.prenom}"/>
+			</select>
 		</div>
 
 	</div>

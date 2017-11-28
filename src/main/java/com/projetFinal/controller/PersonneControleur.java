@@ -1,5 +1,6 @@
 package com.projetFinal.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import com.projetFinal.model.metier.Personne;
 
 @Controller
 @RequestMapping("/personnes")
-public class InfoPersonneControleur {
+public class PersonneControleur {
 	
 	@Autowired
 	private PersonneDAO personneDAO;
@@ -20,7 +21,7 @@ public class InfoPersonneControleur {
 	@Autowired
 	SessionId session;
 	
-	public InfoPersonneControleur() {
+	public PersonneControleur() {
 		
 	}
 
@@ -32,5 +33,19 @@ public class InfoPersonneControleur {
 		model.put("role", personne.getRole().getLibelle());
 		model.put("filiere", personne.getFiliere().getNomFiliere());
 		return "/infosEtudiant";
+	}
+	
+	@GetMapping("/infosAllEtudiantDirEtu")
+	public String infoAllPersonneDirEtu(Map<String, Object> model) {
+		List<Personne> listePersonnes = personneDAO.getAllPersonne();
+		model.put("listePersonnes", listePersonnes);
+		return "/infosAllEtudiantDirEtu";
+	}
+	
+	@GetMapping("/infosAllEtudiantDirEta")
+	public String infoAllPersonneDirEta(Map<String, Object> model) {
+		List<Personne> listePersonnes = personneDAO.getAllPersonne();
+		model.put("listePersonnes", listePersonnes);
+		return "/infosAllEtudiantDirEta";
 	}
 }
