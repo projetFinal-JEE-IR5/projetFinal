@@ -4,7 +4,7 @@
 <title>projetFinal jee</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
 
@@ -19,8 +19,9 @@
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="/">Home</a></li>
-					<li><a href="/personnes/infosEtudiant">Mes informations</a></li>
-					<li><a href="/probleme/afficherProblemes">Problèmes</a></li>
+					<li><a href="/personnes/infosAllEtudiantDirEta">Informer étudiants</a></li>
+					<li><a href="/">Problèmes</a></li>
+					<li><a href="/">Notifications</a></li>
 					<li><a href="#about">About</a></li>
 				</ul>
 			</div>
@@ -28,8 +29,13 @@
 	</nav>
 
 	<div class="container">
+
 		<div class="starter-template">
-			<h1 th:text="${login}+' '+${password}+' connecté'"></h1>
+			<h1>Informations étudiants</h1>
+			<select th:field="*{listePersonnes}">
+			    <option value="default">Sélectionner un étudiant</option>
+			    <option th:each="personne : ${listePersonnes}" th:value="${personne.idPersonne}" th:text="${personne.prenom}"/>
+			</select>
 		</div>
 
 	</div>
