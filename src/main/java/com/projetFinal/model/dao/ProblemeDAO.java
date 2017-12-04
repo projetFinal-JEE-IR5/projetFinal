@@ -25,18 +25,21 @@ public class ProblemeDAO {
 	
 	public Probleme getProblemeById(int id) {
 		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idProbleme=:id", Probleme.class);
-		Probleme personne = q.getSingleResult();
-		return personne;
+		q.setParameter("id", id);
+		Probleme probleme = q.getSingleResult();
+		return probleme;
 	}
 	
-	public List<Probleme> getProblemeByPersonne(int idPersonne) {
+	public List<Probleme> getProblemesByPersonne(int idPersonne) {
 		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idPersonne=:idPersonne", Probleme.class);
+		q.setParameter("idPersonne", idPersonne);
 		List<Probleme> list = q.getResultList();
 		return list;
 	}
 	
-	public List<Probleme> getProblemeByStatus(int idStatus) {
+	public List<Probleme> getProblemesByStatus(int idStatus) {
 		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idStatus=:idStatus", Probleme.class);
+		q.setParameter("idStatus", idStatus);
 		List<Probleme> list = q.getResultList();
 		return list;
 	}
