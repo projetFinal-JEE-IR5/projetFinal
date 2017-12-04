@@ -22,22 +22,24 @@ public class ProblemeDAO {
 		List<Probleme> list = q.getResultList();
 		return list;
 	}
-	
-	public Probleme getProblemeById(int id) {
-		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idProbleme=:id", Probleme.class);
-		Probleme personne = q.getSingleResult();
-		return personne;
-	}
-	
+		
 	public List<Probleme> getProblemeByPersonne(int idPersonne) {
 		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idPersonne=:idPersonne", Probleme.class);
 		List<Probleme> list = q.getResultList();
 		return list;
 	}
 	
-	public List<Probleme> getProblemeByStatus(int idStatus) {
-		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idStatus=:idStatus", Probleme.class);
-		List<Probleme> list = q.getResultList();
-		return list;
+	void addProbleme(Probleme unProbleme) {
+		 em.getTransaction().begin();
+		 em.persist(unProbleme);
+		 em.getTransaction().commit();
+	}
+		
+	void deleteProblemeRésolu(int idStatus) {
+		 TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idStatus=:idStatus", Probleme.class);
+		 Probleme unProbleme = q.getSingleResult();
+		 em.getTransaction().begin();
+		 em.remove(unProbleme);
+		 em.getTransaction().commit();
 	}
 }

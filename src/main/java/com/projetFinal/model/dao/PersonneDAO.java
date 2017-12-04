@@ -31,12 +31,6 @@ public class PersonneDAO {
 		return personne;
 	}
 	
-	public List<Personne> getPersonneByRole(Integer idRole) {
-		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.idRole=:idRole", Personne.class);
-		List<Personne> listePersonne = q.getResultList();
-		return listePersonne;
-	}
-	
 	public List<Personne> getPersonneByFiliere(int idFiliere) {
 		TypedQuery<Personne> q = em.createQuery("select p from Personne p where p.idFiliere=:idFiliere", Personne.class);
 		List<Personne> listePersonne = q.getResultList();
