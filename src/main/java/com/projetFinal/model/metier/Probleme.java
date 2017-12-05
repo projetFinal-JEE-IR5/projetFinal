@@ -14,7 +14,6 @@ public class Probleme {
 	private Integer idProbleme;
 	private String objet;
 	private String contenu;
-	private Integer vote;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_STATUS", unique = false)
 	private Status status;
@@ -27,13 +26,12 @@ public class Probleme {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Probleme(Integer idProbleme, String objet, String contenu, Integer vote, Status status, Personne personne,
+	public Probleme(Integer idProbleme, String objet, String contenu, Status status, Personne personne,
 			long dateHeure) {
 		super();
 		this.idProbleme = idProbleme;
 		this.objet = objet;
 		this.contenu = contenu;
-		this.vote = vote;
 		this.status = status;
 		this.personne = personne;
 		this.dateHeure = dateHeure;
@@ -56,12 +54,6 @@ public class Probleme {
 	}
 	public void setContenu(String contenu) {
 		this.contenu = contenu;
-	}
-	public Integer getVote() {
-		return vote;
-	}
-	public void setVote(Integer vote) {
-		this.vote = vote;
 	}
 	public Status getStatus() {
 		return status;

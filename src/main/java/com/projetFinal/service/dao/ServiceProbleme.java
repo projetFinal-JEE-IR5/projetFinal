@@ -27,7 +27,7 @@ public class ServiceProbleme {
 	
 	public void maMethode() {
 		int id = 0;
-		problemeDAO.getProblemeById(id);
+		//problemeDAO.getProblemeById(id);
 		personneDAO.getAllPersonne();
 	}
 
