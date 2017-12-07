@@ -13,44 +13,51 @@ public class Notification {
 	@Id
 	@GeneratedValue
 	private Integer idNotification;
-	
-	@Basic private long date_heure;
-	@Basic private String contenu;
+	@Basic
+	private long dateHeureNotif;
+	@Basic
+	private String contenu;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_PERSONNE", unique = false)
 	private Personne personne;
-	
-	public Notification(Integer idNotification, long date_heure, String contenu, Personne personne) {
+
+	public Notification(Integer idNotification, long dateHeureNotif, String contenu, Personne personne) {
 		super();
 		this.idNotification = idNotification;
-		this.date_heure = date_heure;
+		this.dateHeureNotif = dateHeureNotif;
 		this.contenu = contenu;
 		this.personne = personne;
 	}
-	
+
 	public Integer getIdNotification() {
 		return idNotification;
 	}
+
 	public void setIdNotification(Integer idNotification) {
 		this.idNotification = idNotification;
 	}
-	public long getDate_heure() {
-		return date_heure;
+
+	public long getDateHeureNotif() {
+		return dateHeureNotif;
 	}
-	public void setDate_heure(long date_heure) {
-		this.date_heure = date_heure;
+
+	public void setDateHeureNotif(long dateHeureNotif) {
+		this.dateHeureNotif = dateHeureNotif;
 	}
+
 	public String getContenu() {
 		return contenu;
 	}
+
 	public void setContenu(String contenu) {
 		this.contenu = contenu;
 	}
+
 	public Personne getPersonne() {
 		return personne;
 	}
+
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
 	}
-		
 }

@@ -13,23 +13,22 @@ public class Personne {
 	@Id
 	@GeneratedValue
 	private Integer idPersonne;
-	
-	@Basic private String nom;
-	@Basic private String prenom;
-	@Basic private String login;
-	@Basic private String password;
-	@Basic private int nbVoteAutorise;
+	@Basic
+	private String nom;
+	@Basic
+	private String prenom;
+	@Basic
+	private String login;
+	@Basic
+	private String password;
+	@Basic
+	private int nbVoteAutorise;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_ROLE", unique = false)
 	private Role role;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_FILIERE", unique = false)
 	private Filiere filiere;
-	
-
-	public Personne() {
-		
-	}
 
 	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, int nbVoteAutorise,
 			Role role, Filiere filiere) {

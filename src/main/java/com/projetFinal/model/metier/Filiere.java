@@ -1,5 +1,6 @@
 package com.projetFinal.model.metier;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,12 +10,10 @@ public class Filiere {
 	@Id
 	@GeneratedValue
 	private Integer idFiliere;
+	@Basic
 	private String nomFiliere;
+	@Basic
 	private String abreviation;
-	
-	public Filiere() {
-		
-	}
 
 	public Filiere(Integer idFiliere, String libelle, String abreviation) {
 		this.idFiliere = idFiliere;

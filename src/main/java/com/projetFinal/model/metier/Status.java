@@ -1,5 +1,6 @@
 package com.projetFinal.model.metier;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,11 +10,8 @@ public class Status {
 	@Id
 	@GeneratedValue
 	private Integer idStatus;
+	@Basic
 	private String libelle;
-	
-	public Status() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public Status(Integer idStatus, String libelle) {
 		this.idStatus = idStatus;
