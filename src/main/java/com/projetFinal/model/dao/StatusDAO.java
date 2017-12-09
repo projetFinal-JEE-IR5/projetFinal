@@ -27,6 +27,7 @@ public class StatusDAO {
 	
 	public Status getStatusById(int id) {
 		TypedQuery<Status> q = em.createQuery("select s from Status s where s.idStatus=:id", Status.class);
+		q.setParameter("id", id);
 		Status status = q.getSingleResult();
 		return status;
 	}
