@@ -14,6 +14,9 @@ public class Filiere {
 	private String nomFiliere;
 	@Basic
 	private String abreviation;
+	
+	public Filiere() {
+	}
 
 	public Filiere(Integer idFiliere, String libelle, String abreviation) {
 		this.idFiliere = idFiliere;

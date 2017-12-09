@@ -12,6 +12,9 @@ public class Status {
 	private Integer idStatus;
 	@Basic
 	private String libelle;
+	
+	public Status() {
+	}
 
 	public Status(Integer idStatus, String libelle) {
 		this.idStatus = idStatus;

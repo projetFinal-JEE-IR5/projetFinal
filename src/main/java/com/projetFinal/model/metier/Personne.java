@@ -22,15 +22,19 @@ public class Personne {
 	@Basic
 	private String password;
 	@Basic
-	private int nbVoteAutorise;
+	private Integer nbVoteAutorise;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_ROLE", unique = false)
 	private Role role;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_FILIERE", unique = false)
 	private Filiere filiere;
+	
 
-	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, int nbVoteAutorise,
+	public Personne() {
+	}
+
+	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Integer nbVoteAutorise,
 			Role role, Filiere filiere) {
 		super();
 		this.idPersonne = idPersonne;
@@ -43,11 +47,11 @@ public class Personne {
 		this.filiere = filiere;
 	}
 
-	public int getNbVoteAutorise() {
+	public Integer getNbVoteAutorise() {
 		return nbVoteAutorise;
 	}
 
-	public void setNbVoteAutorise(int nbVoteAutorise) {
+	public void setNbVoteAutorise(Integer nbVoteAutorise) {
 		this.nbVoteAutorise = nbVoteAutorise;
 	}
 
