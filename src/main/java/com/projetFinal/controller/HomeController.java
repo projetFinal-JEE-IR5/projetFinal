@@ -58,5 +58,5 @@ public class HomeController {
 		model.put("password", password);
 		return menu;
 	}
-
+//http://www.thymeleaf.org/doc/articles/layouts.html
 }
