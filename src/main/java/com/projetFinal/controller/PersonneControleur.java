@@ -25,27 +25,13 @@ public class PersonneControleur {
 		
 	}
 
-	@GetMapping("/infosEtudiant")
+	@GetMapping("/informations")
 	public String infoPersonne(Map<String, String> model) {
 		Personne personne = personneDAO.getPersonneById(session.getCurrentUserId());
 		model.put("prenom", personne.getPrenom());
 		model.put("nom", personne.getNom());
 		model.put("role", personne.getRole().getLibelle());
 		model.put("filiere", personne.getFiliere().getNomFiliere());
-		return "/infosEtudiant";
-	}
-	
-	@GetMapping("/infosAllEtudiantDirEtu")
-	public String infoAllPersonneDirEtu(Map<String, Object> model) {
-		List<Personne> listePersonnes = personneDAO.getAllPersonne();
-		model.put("listePersonnes", listePersonnes);
-		return "/infosAllEtudiantDirEtu";
-	}
-	
-	@GetMapping("/infosAllEtudiantDirEta")
-	public String infoAllPersonneDirEta(Map<String, Object> model) {
-		List<Personne> listePersonnes = personneDAO.getAllPersonne();
-		model.put("listePersonnes", listePersonnes);
-		return "/infosAllEtudiantDirEta";
+		return "/informations";
 	}
 }

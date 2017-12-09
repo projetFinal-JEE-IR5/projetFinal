@@ -17,7 +17,7 @@ public class ProblemeDAO {
 	@PersistenceContext
 	EntityManager em;
 
-	public List<Probleme> getAllProbleme() {
+	public List<Probleme> getAllProblemes() {
 		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p", Probleme.class);
 		List<Probleme> list = q.getResultList();
 		return list;

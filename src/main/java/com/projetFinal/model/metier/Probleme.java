@@ -25,6 +25,9 @@ public class Probleme {
 	private Personne personne;
 	@Basic
 	private long dateHeureProbleme;
+	
+	public Probleme() {
+	}
 
 	public Probleme(Integer idProbleme, String objet, String contenu, Status status, Personne personne,
 			long dateHeureProbleme) {

@@ -20,6 +20,10 @@ public class Notification {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_PERSONNE", unique = false)
 	private Personne personne;
+	
+	public Notification() {
+		
+	}
 
 	public Notification(Integer idNotification, long dateHeureNotif, String contenu, Personne personne) {
 		super();

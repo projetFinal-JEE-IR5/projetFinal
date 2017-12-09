@@ -30,7 +30,11 @@ public class Personne {
 	@JoinColumn(name = "ID_FILIERE", unique = false)
 	private Filiere filiere;
 	
-	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, int nbVoteAutorise,
+
+	public Personne() {
+	}
+
+	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Integer nbVoteAutorise,
 			Role role, Filiere filiere) {
 		super();
 		this.idPersonne = idPersonne;

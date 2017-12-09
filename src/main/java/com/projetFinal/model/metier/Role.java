@@ -12,6 +12,9 @@ public class Role {
 	private Integer idRole;
 	@Basic
 	private String libelle;
+	
+	public Role() {
+	}
 
 	public Role(Integer idRole, String libelle) {
 		this.idRole = idRole;
