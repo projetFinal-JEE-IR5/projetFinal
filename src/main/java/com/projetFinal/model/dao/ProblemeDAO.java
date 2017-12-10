@@ -24,14 +24,14 @@ public class ProblemeDAO {
 	}
 
 	public void addProbleme(Probleme unProbleme) {
-		 em.persist(unProbleme);
+		em.persist(unProbleme);
 	}
 		
-	void deleteProblemeResolu(int idStatus) {
-		 TypedQuery<Probleme> q = em.createQuery("select p from Probleme p where p.idStatus=:idStatus", Probleme.class);
-		 Probleme unProbleme = q.getSingleResult();
-		 em.getTransaction().begin();
-		 em.remove(unProbleme);
-		 em.getTransaction().commit();
-		 }
+	public void deleteProblemesResolus() {
+		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p inner join Status s on p.idStatus=s.idStatus inner join Voter v on p.idProbleme=v.idProbleme where s.idStatus=2", Probleme.class);
+		List<Probleme> list = q.getResultList();
+		for (Probleme probleme : list) {
+			em.remove(probleme);
+		}
 	}
+}

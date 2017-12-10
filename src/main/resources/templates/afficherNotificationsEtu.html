@@ -1,14 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>projetFinal JEE</title>
+<title>projetFinal jee</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link rel="stylesheet" type="text/css"
-	href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-<link rel="stylesheet" th:href="@{/css/main.css}"
-	href="../../css/main.css" />
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
 
 </head>
 <body>
@@ -32,33 +30,21 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1>Liste des problèmes</h1>
+			<h1>Notifications</h1>
 			<br></br> 
 			<table>
 				<thead>
 					<tr>
 						<td>Date - Heure</td>
-						<td>Status</td>
-						<td>Soumis par</td>
+						<td>Envoyé par</td>
 						<td>Objet</td>
 						<td>Contenu</td>
-						<td>Nb Vote</td>
+						<td>Supprimer</td>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="item : ${listProblemes}">						
-						<td th:text="${item.dateHeureProbleme}"></td>
-						<td th:text="${item.status.libelle}"></td>
-						<td th:text="${item.personne.prenom}+' '+${item.personne.nom}"></td>
-						<td th:text="${item.objet}"></td>
-						<td th:text="${item.contenu}"></td>
-						<td><button>+</button></td>
-						<!-- <td th:text="${item.vote}"></td> -->	
-					</tr>
 				</tbody>
 			</table>
-			<br></br>
-			<a href="/problemes/ajouterProbleme"><input type="button" name="addPb" value="Soumettre un problème"/></a>
 		</div>
 	</div>
 </body>
