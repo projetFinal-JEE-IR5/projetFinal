@@ -23,10 +23,8 @@ public class ProblemeDAO {
 		return list;
 	}
 
-	void addProbleme(Probleme unProbleme) {
-		 em.getTransaction().begin();
+	public void addProbleme(Probleme unProbleme) {
 		 em.persist(unProbleme);
-		 em.getTransaction().commit();
 	}
 		
 	void deleteProblemeResolu(int idStatus) {

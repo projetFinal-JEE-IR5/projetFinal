@@ -6,12 +6,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.projetFinal.model.dao.PersonneDAO;
 import com.projetFinal.model.dao.ProblemeDAO;
+import com.projetFinal.model.dao.StatusDAO;
 import com.projetFinal.model.metier.Personne;
 import com.projetFinal.model.metier.Probleme;
+import com.projetFinal.model.metier.Status;
 
 @Controller
 @RequestMapping("/problemes")
@@ -20,11 +24,17 @@ public class ProblemeController {
 	@Autowired
 	private ProblemeDAO problemeDAO;
 	
-	//@Autowired
-	//private ServiceProbleme sp;
+	@Autowired
+	private PersonneDAO personneDAO;
+	
+	@Autowired
+	private StatusDAO statusDAO;
 	
 	@Autowired
 	SessionId session;
+	
+	//@Autowired
+	//private ServiceProbleme sp;
 
 	@GetMapping("/afficherProblemesEtu")
 	public String afficherProblemesEtu(Map<String, Object> model) {
@@ -43,17 +53,26 @@ public class ProblemeController {
 	}
 	
 	@GetMapping("/ajouterProbleme")
-	public String ajouterProbleme(Map<String, Object> model) {
+	public String ajouterProbleme() {
 		return "/ajouterProbleme";
 	}
 	
-	@GetMapping("/soumettreProbleme")
-	public String soumettreProbleme(Map<String, Object> model) {
-		String objet = (String) model.get("objet");
-		String contenu = (String) model.get("contenu");
-		//Personne personne = PersonneDAO.getPersonneById(session.getCurrentUserId());
-		//Probleme unProbleme = new Probleme(null, objet, contenu, , ,long dateHeureProbleme);
-		//problemeDAO.addProbleme(Probleme unProbleme);
-		return "/soumettreProbleme";
-	}
+	@PostMapping("/ajouterProbleme")
+	public String soumettreProbleme(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
+		String objet = formValues.get("objet");
+		String contenu = formValues.get("contenu");
+		Personne personne = personneDAO.getPersonneById(session.getCurrentUserId());
+		Status status = statusDAO.getStatusById(1);
+		String format = "ddMMyyHmmss"; 
+		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
+		java.util.Date date = new java.util.Date(); 
+		long dateHeureProbleme = Long.valueOf(formater.format(date));
+		//long dateHeureProbleme = 1509380153;
+		Probleme unProbleme = new Probleme(null, objet, contenu, status, personne, dateHeureProbleme);
+		problemeDAO.addProbleme(unProbleme);
+		//on affiche la nouvelle liste de pb
+		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		model.put("listProblemes", listProblemes);
+		return "/afficherProblemesEtu";
+	}	
 }
