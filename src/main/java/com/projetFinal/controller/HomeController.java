@@ -14,8 +14,8 @@ import com.projetFinal.model.metier.Etudiant;
 import com.projetFinal.service.dao.ServicePersonnes;
 
 @Controller
-public class HomeController {
-		
+public class HomeController{
+	
 	@Autowired
 	private ServicePersonnes servicePersonnes;
 	
