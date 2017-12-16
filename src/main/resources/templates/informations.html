@@ -33,12 +33,12 @@
 		<div class="starter-template">
 			<h1>Informations</h1>
 			<br></br> 
-			<div th:text="'typePersonne : '+${typePersonne}"></div>
-			<div th:text="'login : '+${login}"></div>
-			<div th:text="'prénom : '+${prenom}"></div>
-			<div th:text="'nom : '+${nom}"></div>
-			<div th:text="'filière : '+${filiere}"></div>
-			<div th:text="'nombre de problèmes autorisé par jour : '+${nbProb}"></div>
+			<div th:text="'typePersonne : '+${role}"></div>
+			<div th:text="'login : '+${typePersonne.login}"></div>
+			<div th:text="'prénom : '+${typePersonne.prenom}"></div>
+			<div th:text="'nom : '+${typePersonne.nom}"></div>
+			<div th:text="'filière : '+${typePersonne.filiere.nomFiliere}"></div>
+			<div th:text="'nombre de problèmes autorisé par jour : '+${typePersonne.nbProbAutoriseJour}"></div>
 		</div>
 
 	</div>

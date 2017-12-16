@@ -108,10 +108,12 @@ public class ProblemeController {
 		return "/limiterNbPbDirEtu";
 	}
 	
-	@PostMapping("/validerLimNbPbDirEtu")
+	@PostMapping("/limiterNbPbDirEtu")
 	public String validerLimNbPbDirEtu(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
-		return "/afficherProblemesDirEtu"; 
+		etudiantDAO.setNbPbAutorise(nbPb);
+		model.put("message", "Limite validée");
+		return "/limiterNbPbDirEtu";
 	}	
 	
 	@GetMapping("/limiterNbPbDirEta")
@@ -119,9 +121,11 @@ public class ProblemeController {
 		return "/limiterNbPbDirEta";
 	}
 	
-	@PostMapping("/validerLimNbPbDirEta")
+	@PostMapping("/limiterNbPbDirEta")
 	public String validerLimNbPbDirEta(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
-		return "/afficherProblemesDirEta";
+		etudiantDAO.setNbPbAutorise(nbPb);
+		model.put("message", "Limite validée");
+		return "/limiterNbPbDirEta";
 	}	
 }
