@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -21,6 +22,13 @@ public class ProblemeDAO {
 		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p", Probleme.class);
 		List<Probleme> list = q.getResultList();
 		return list;
+	}
+	
+	public Integer getNbVotesProbleme(Integer idProbleme) {
+		Query q = em.createQuery("select count(id_probleme) from voter v where v.id_probleme=:idProbleme");
+		q.setParameter("idProbleme", idProbleme);
+		Integer nbVotes = (Integer) q.getSingleResult();
+		return nbVotes;
 	}
 
 	public void addProbleme(Probleme unProbleme) {

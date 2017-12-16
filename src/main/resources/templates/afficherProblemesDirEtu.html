@@ -50,7 +50,7 @@
 					<tr th:each="item : ${listProblemes}">
 						<td th:text="${item.dateHeureProbleme}"></td>
 						<td th:text="${item.status.libelle}"></td>
-						<td th:text="${item.personne.prenom}+' '+${item.personne.nom}"></td>
+						<td th:text="${item.etudiant.prenom}+' '+${item.etudiant.nom}"></td>
 						<td th:text="${item.objet}"></td>
 						<td th:text="${item.contenu}"></td>
 						<td></td>

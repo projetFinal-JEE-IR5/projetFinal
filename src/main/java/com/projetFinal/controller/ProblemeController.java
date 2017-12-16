@@ -1,5 +1,6 @@
 package com.projetFinal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,11 +41,16 @@ public class ProblemeController {
 	public String afficherProblemesEtu(Map<String, Object> model) {
 		//sp.maMethode();		
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		List<Integer> listNbVotes = new ArrayList<Integer>();
+		for (Probleme probleme : listProblemes) {
+			listNbVotes.add(problemeDAO.getNbVotesProbleme(probleme.getIdProbleme()));
+		}
 		/*
 		for (Probleme probleme : listProblemes) {
 			String dateHeure=Long.toString(probleme.getDateHeureProbleme());
 			dateHeure=dateHeure.substring(0, 2)+"/"+dateHeure.substring(2, 4)+"/"+dateHeure.substring(4, 6)+" "+dateHeure.substring(6, 7)+":"+dateHeure.substring(7, 9)+":"+dateHeure.substring(9, 11);
 		*/
+		model.put("listNbVotes", listNbVotes);
 		model.put("listProblemes", listProblemes);
 		return "/afficherProblemesEtu";
 	}
