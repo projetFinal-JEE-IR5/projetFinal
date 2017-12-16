@@ -1,7 +1,7 @@
 package com.projetFinal.model.metier;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,19 +18,24 @@ public class Notification {
 	@Basic
 	private String contenu;
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ID_PERSONNE", unique = false)
-	private Personne personne;
-	
+	@JoinColumn(name = "ID_DIR_ETUDES", unique = false)
+	private DirEtudes dir_etudes;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "ID_DIR_ETABLISSEMENT", unique = false)
+	private DirEtablissement dir_etablissement;
+
 	public Notification() {
-		
+
 	}
 
-	public Notification(Integer idNotification, long dateHeureNotif, String contenu, Personne personne) {
+	public Notification(Integer idNotification, long dateHeureNotif, String contenu, DirEtudes dir_etudes,
+			DirEtablissement dir_etablissement) {
 		super();
 		this.idNotification = idNotification;
 		this.dateHeureNotif = dateHeureNotif;
 		this.contenu = contenu;
-		this.personne = personne;
+		this.dir_etudes = dir_etudes;
+		this.dir_etablissement = dir_etablissement;
 	}
 
 	public Integer getIdNotification() {
@@ -57,11 +62,19 @@ public class Notification {
 		this.contenu = contenu;
 	}
 
-	public Personne getPersonne() {
-		return personne;
+	public DirEtudes getDir_etudes() {
+		return dir_etudes;
 	}
 
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
+	public void setDir_etudes(DirEtudes dir_etudes) {
+		this.dir_etudes = dir_etudes;
+	}
+
+	public DirEtablissement getDir_etablissement() {
+		return dir_etablissement;
+	}
+
+	public void setDir_etablissement(DirEtablissement dir_etablissement) {
+		this.dir_etablissement = dir_etablissement;
 	}
 }

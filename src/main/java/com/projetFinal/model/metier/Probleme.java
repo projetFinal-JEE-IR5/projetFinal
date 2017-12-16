@@ -21,22 +21,22 @@ public class Probleme {
 	@JoinColumn(name = "ID_STATUS", unique = false)
 	private Status status;
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ID_PERSONNE", unique = false)
-	private Personne personne;
+	@JoinColumn(name = "ID_ETUDIANT", unique = false)
+	private Etudiant etudiant;
 	@Basic
 	private long dateHeureProbleme;
-	
+
 	public Probleme() {
 	}
 
-	public Probleme(Integer idProbleme, String objet, String contenu, Status status, Personne personne,
+	public Probleme(Integer idProbleme, String objet, String contenu, Status status, Etudiant etudiant,
 			long dateHeureProbleme) {
 		super();
 		this.idProbleme = idProbleme;
 		this.objet = objet;
 		this.contenu = contenu;
 		this.status = status;
-		this.personne = personne;
+		this.etudiant = etudiant;
 		this.dateHeureProbleme = dateHeureProbleme;
 	}
 
@@ -72,12 +72,12 @@ public class Probleme {
 		this.status = status;
 	}
 
-	public Personne getPersonne() {
-		return personne;
+	public Etudiant getEtudiant() {
+		return etudiant;
 	}
 
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
+	public void setEtudiant(Etudiant etudiant) {
+		this.etudiant = etudiant;
 	}
 
 	public long getDateHeureProbleme() {

@@ -7,20 +7,11 @@
 -- Table: filiere
 ------------------------------------------------------------
 CREATE TABLE filiere(
-	id_filiere   INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
-	abreviation  Varchar NOT NULL  ,
-	nom_filiere  Varchar NOT NULL  ,
+	id_filiere     INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
+	abreviation    Varchar NOT NULL  ,
+	nom_filiere    Varchar NOT NULL  ,
+	id_dir_etudes  Int NOT NULL  ,
 	PRIMARY KEY (id_filiere)
-);
-
-
-------------------------------------------------------------
--- Table: role
-------------------------------------------------------------
-CREATE TABLE role(
-	id_role  INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
-	libelle  Varchar NOT NULL  ,
-	PRIMARY KEY (id_role)
 );
 
 
@@ -32,7 +23,7 @@ CREATE TABLE probleme(
 	contenu              Varchar NOT NULL  ,
 	date_heure_probleme  BIGINT NOT NULL  ,
 	objet                Varchar NOT NULL  ,
-	id_personne          Int NOT NULL  ,
+	id_etudiant          Int NOT NULL  ,
 	id_status            Int NOT NULL  ,
 	PRIMARY KEY (id_probleme)
 );
@@ -49,18 +40,17 @@ CREATE TABLE status(
 
 
 ------------------------------------------------------------
--- Table: personne
+-- Table: etudiant
 ------------------------------------------------------------
-CREATE TABLE personne(
-	id_personne       INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
-	login             Varchar ,
-	nom               Varchar NOT NULL  ,
-	prenom            Varchar NOT NULL  ,
-	password          Varchar NOT NULL  ,
-	nb_vote_autorise  Int ,
-	id_filiere        Int ,
-	id_role           Int NOT NULL  ,
-	PRIMARY KEY (id_personne) ,
+CREATE TABLE etudiant(
+	id_etudiant            INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
+	login                  Varchar ,
+	nom                    Varchar NOT NULL  ,
+	prenom                 Varchar NOT NULL  ,
+	password               Varchar NOT NULL  ,
+	nb_prob_autorise_jour  Int NOT NULL  ,
+	id_filiere             Int NOT NULL  ,
+	PRIMARY KEY (id_etudiant) ,
 	UNIQUE (login)
 );
 
@@ -69,11 +59,41 @@ CREATE TABLE personne(
 -- Table: notification
 ------------------------------------------------------------
 CREATE TABLE notification(
-	id_notification   INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
-	date_heure_notif  BIGINT NOT NULL  ,
-	contenu           Varchar NOT NULL  ,
-	id_personne       Int NOT NULL  ,
+	id_notification       INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
+	date_heure_notif      BIGINT NOT NULL  ,
+	contenu               Varchar NOT NULL  ,
+	id_dir_etudes         Int ,
+	id_dir_etablissement  Int ,
 	PRIMARY KEY (id_notification)
+);
+
+
+------------------------------------------------------------
+-- Table: dir_etudes
+------------------------------------------------------------
+CREATE TABLE dir_etudes(
+	id_dir_etudes  INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
+	login          Varchar ,
+	nom            Varchar NOT NULL  ,
+	prenom         Varchar NOT NULL  ,
+	password       Varchar NOT NULL  ,
+	id_filiere     Int NOT NULL  ,
+	PRIMARY KEY (id_dir_etudes) ,
+	UNIQUE (login)
+);
+
+
+------------------------------------------------------------
+-- Table: dir_etablissement
+------------------------------------------------------------
+CREATE TABLE dir_etablissement(
+	id_dir_etablissement  INT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)  ,
+	login                 Varchar ,
+	nom                   Varchar NOT NULL  ,
+	prenom                Varchar NOT NULL  ,
+	password              Varchar NOT NULL  ,
+	PRIMARY KEY (id_dir_etablissement) ,
+	UNIQUE (login)
 );
 
 
@@ -82,9 +102,9 @@ CREATE TABLE notification(
 ------------------------------------------------------------
 CREATE TABLE voter(
 	date_heure_vote  BIGINT NOT NULL  ,
-	id_personne      Int ,
+	id_etudiant      Int ,
 	id_probleme      Int ,
-	PRIMARY KEY (id_personne,id_probleme)
+	PRIMARY KEY (id_etudiant,id_probleme)
 );
 
 
@@ -93,53 +113,71 @@ CREATE TABLE voter(
 ------------------------------------------------------------
 CREATE TABLE recevoir(
 	id_notification  Int ,
-	id_personne      Int ,
-	PRIMARY KEY (id_notification,id_personne)
+	id_etudiant      Int ,
+	PRIMARY KEY (id_notification,id_etudiant)
 );
 
 
-ALTER TABLE probleme ADD FOREIGN KEY (id_personne) REFERENCES personne(id_personne);
-ALTER TABLE probleme ADD FOREIGN KEY (id_status) REFERENCES status(id_status);
-ALTER TABLE personne ADD FOREIGN KEY (id_filiere) REFERENCES filiere(id_filiere);
-ALTER TABLE personne ADD FOREIGN KEY (id_role) REFERENCES role(id_role);
-ALTER TABLE notification ADD FOREIGN KEY (id_personne) REFERENCES personne(id_personne);
-ALTER TABLE voter ADD FOREIGN KEY (id_personne) REFERENCES personne(id_personne);
-ALTER TABLE voter ADD FOREIGN KEY (id_probleme) REFERENCES probleme(id_probleme);
-ALTER TABLE recevoir ADD FOREIGN KEY (id_notification) REFERENCES notification(id_notification);
-ALTER TABLE recevoir ADD FOREIGN KEY (id_personne) REFERENCES personne(id_personne);
+INSERT INTO FILIERE (ABREVIATION, NOM_FILIERE, ID_DIR_ETUDES)VALUES('IR', 'Informatique et Réseaux', 1);
+INSERT INTO FILIERE (ABREVIATION, NOM_FILIERE, ID_DIR_ETUDES)VALUES('SEP', 'Sécurité, Environnement et Prévention', 2);
 
-INSERT INTO ROLE (LIBELLE) VALUES ('Étudiant');
-INSERT INTO ROLE (LIBELLE) VALUES ('Directeur Établissement');
-INSERT INTO ROLE (LIBELLE) VALUES ('Directeur Études');
+INSERT INTO DIR_ETABLISSEMENT (NOM, PRENOM, LOGIN, PASSWORD) VALUES ('RICHARD', 'Antoine', 'arichard', 'arichard');
 
-INSERT INTO FILIERE (ABREVIATION, NOM_FILIERE)VALUES('IR', 'Informatique et Réseaux');
-INSERT INTO FILIERE (ABREVIATION, NOM_FILIERE)VALUES('SEP', 'Sécurité, Environnement et Prévention');
+INSERT INTO DIR_ETUDES (NOM, PRENOM, LOGIN, PASSWORD, ID_FILIERE) VALUES ('MARTY', 'Benjamin', 'bmarty', 'bmarty', 1);
+INSERT INTO DIR_ETUDES (NOM, PRENOM, LOGIN, PASSWORD, ID_FILIERE) VALUES ('STALLMAN', 'Richard', 'rstallman', 'rstallman', 2);
+
+INSERT INTO ETUDIANT (NOM, PRENOM, LOGIN, PASSWORD, NB_PROB_AUTORISE_JOUR, ID_FILIERE) VALUES ('SABARON', 'Benjamin', 'bsabaron', 'bsabaron', 10, 1);
+INSERT INTO ETUDIANT (NOM, PRENOM, LOGIN, PASSWORD, NB_PROB_AUTORISE_JOUR, ID_FILIERE) VALUES ('GATES', 'Bill', 'bgates', 'bgates', 10, 1);
+INSERT INTO ETUDIANT (NOM, PRENOM, LOGIN, PASSWORD, NB_PROB_AUTORISE_JOUR, ID_FILIERE) VALUES ('MUSK', 'Elon', 'emusk', 'emusk', 10, 2);
+INSERT INTO ETUDIANT (NOM, PRENOM, LOGIN, PASSWORD, NB_PROB_AUTORISE_JOUR, ID_FILIERE) VALUES ('SNOWDEN', 'Edward', 'esnowden', 'esnowden', 10, 2);
 
 INSERT INTO STATUS (LIBELLE)VALUES('En cours');
 INSERT INTO STATUS (LIBELLE)VALUES('Résolu');
 
-INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,NB_VOTE_AUTORISE,ID_FILIERE,ID_ROLE) VALUES ('Daniels', 'Jack', 'jdaniel', 'whisky', 10, 2, 1);
-INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,NB_VOTE_AUTORISE,ID_FILIERE,ID_ROLE) VALUES ('RICHARD', 'Antoine', 'arichard', 'arichard', null, null, 2);
-INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,NB_VOTE_AUTORISE,ID_FILIERE,ID_ROLE) VALUES ('SABARON', 'Benjamin', 'bsabaron', 'bsabaron', 10, 1, 1);
-INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,NB_VOTE_AUTORISE,ID_FILIERE,ID_ROLE) VALUES ('MARTY', 'Benjamin', 'bmarty', 'bmarty', null, null, 3);
-INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,NB_VOTE_AUTORISE,ID_FILIERE,ID_ROLE) VALUES ('Morgan', 'Captain', 'cmorgan', 'rhum', 10, 1, 1);
-INSERT INTO PERSONNE (NOM,PRENOM,LOGIN,PASSWORD,NB_VOTE_AUTORISE,ID_FILIERE,ID_ROLE) VALUES ('Meister', 'Jager', 'jmeister', 'liqueur', 10, 2, 1);
+INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_ETUDIANT, ID_STATUS) VALUES ('contenu du probleme 1', 1509380153, 'probleme 1', 1, 1);
+INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_ETUDIANT, ID_STATUS) VALUES ('contenu du probleme 2', 1509380153, 'probleme 2', 2, 1);
+INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_ETUDIANT, ID_STATUS) VALUES ('contenu du probleme 3', 1509380153, 'probleme 3', 3, 1);
+INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_ETUDIANT, ID_STATUS) VALUES ('contenu du probleme 4', 1509380153, 'probleme 4', 4, 1);
+INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_ETUDIANT, ID_STATUS) VALUES ('contenu du probleme 5', 1509380153, 'probleme 5', 1, 2);
+INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_ETUDIANT, ID_STATUS) VALUES ('contenu du probleme 6', 1509380153, 'probleme 6', 3, 2);
 
-INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_PERSONNE, ID_STATUS)VALUES('contenu du probleme 1', 1509380153, 'probleme 1', 1, 1);
-INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_PERSONNE, ID_STATUS)VALUES('contenu du probleme 2', 1509380153, 'probleme 2', 5, 1);
-INSERT INTO PROBLEME (CONTENU, DATE_HEURE_PROBLEME, OBJET, ID_PERSONNE, ID_STATUS) VALUES ('contenu du probleme 3', 1509380153, 'probleme 3', 2, 2);
+INSERT INTO NOTIFICATION (CONTENU, DATE_HEURE_NOTIF, ID_DIR_ETUDES, ID_DIR_ETABLISSEMENT) VALUES ('contenu du notif 1', 1512685926, 1, null);
+INSERT INTO NOTIFICATION (CONTENU, DATE_HEURE_NOTIF, ID_DIR_ETUDES, ID_DIR_ETABLISSEMENT) VALUES ('contenu du notif 2', 1512685944, 2, null);
+INSERT INTO NOTIFICATION (CONTENU, DATE_HEURE_NOTIF, ID_DIR_ETUDES, ID_DIR_ETABLISSEMENT) VALUES ('contenu du notif 3', 1512685944, null, 1);
+INSERT INTO NOTIFICATION (CONTENU, DATE_HEURE_NOTIF, ID_DIR_ETUDES, ID_DIR_ETABLISSEMENT) VALUES ('contenu du notif 4', 1512685944, null, 1);
 
-INSERT INTO NOTIFICATION (CONTENU, DATE_HEURE_NOTIF, ID_PERSONNE) VALUES ('contenu du notif 1', 1512685926, 2);
-INSERT INTO NOTIFICATION (CONTENU, DATE_HEURE_NOTIF, ID_PERSONNE) VALUES ('contenu du notif 2', 1512685944, 4);
+INSERT INTO VOTER (DATE_HEURE_VOTE, ID_ETUDIANT, ID_PROBLEME) VALUES (1512686191, 1, 1);
+INSERT INTO VOTER (DATE_HEURE_VOTE, ID_ETUDIANT, ID_PROBLEME) VALUES (1512686191, 2, 1);
+INSERT INTO VOTER (DATE_HEURE_VOTE, ID_ETUDIANT, ID_PROBLEME) VALUES (1512686191, 3, 2);
+INSERT INTO VOTER (DATE_HEURE_VOTE, ID_ETUDIANT, ID_PROBLEME) VALUES (1512686191, 4, 3);
+INSERT INTO VOTER (DATE_HEURE_VOTE, ID_ETUDIANT, ID_PROBLEME) VALUES (1512686191, 1, 2);
+INSERT INTO VOTER (DATE_HEURE_VOTE, ID_ETUDIANT, ID_PROBLEME) VALUES (1512686191, 1, 3);
+INSERT INTO VOTER (DATE_HEURE_VOTE, ID_ETUDIANT, ID_PROBLEME) VALUES (1512686191, 2, 4);
 
-INSERT INTO VOTER (DATE_HEURE_VOTE, ID_PERSONNE, ID_PROBLEME) VALUES (1512686191, 1, 1);
-INSERT INTO VOTER (DATE_HEURE_VOTE, ID_PERSONNE, ID_PROBLEME) VALUES (1512686191, 3, 1);
-INSERT INTO VOTER (DATE_HEURE_VOTE, ID_PERSONNE, ID_PROBLEME) VALUES (1512686191, 5, 2);
-INSERT INTO VOTER (DATE_HEURE_VOTE, ID_PERSONNE, ID_PROBLEME) VALUES (1512686191, 6, 2);
-INSERT INTO VOTER (DATE_HEURE_VOTE, ID_PERSONNE, ID_PROBLEME) VALUES (1512686191, 3, 3);
-INSERT INTO VOTER (DATE_HEURE_VOTE, ID_PERSONNE, ID_PROBLEME) VALUES (1512686191, 6, 3);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (1, 1);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (1, 2);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (2, 3);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (2, 4);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (3, 1);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (3, 2);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (3, 3);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (3, 4);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (4, 1);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (4, 2);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (4, 3);
+INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_ETUDIANT) VALUES (4, 4);
 
-INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_PERSONNE) VALUES (1, 2);
-INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_PERSONNE) VALUES (1, 3);
-INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_PERSONNE) VALUES (2, 5);
-INSERT INTO RECEVOIR (ID_NOTIFICATION, ID_PERSONNE) VALUES (2, 6);
+
+ALTER TABLE filiere ADD FOREIGN KEY (id_dir_etudes) REFERENCES dir_etudes(id_dir_etudes);
+ALTER TABLE probleme ADD FOREIGN KEY (id_etudiant) REFERENCES etudiant(id_etudiant);
+ALTER TABLE probleme ADD FOREIGN KEY (id_status) REFERENCES status(id_status);
+ALTER TABLE etudiant ADD FOREIGN KEY (id_filiere) REFERENCES filiere(id_filiere);
+ALTER TABLE notification ADD FOREIGN KEY (id_dir_etudes) REFERENCES dir_etudes(id_dir_etudes);
+ALTER TABLE notification ADD FOREIGN KEY (id_dir_etablissement) REFERENCES dir_etablissement(id_dir_etablissement);
+ALTER TABLE dir_etudes ADD FOREIGN KEY (id_filiere) REFERENCES filiere(id_filiere);
+ALTER TABLE voter ADD FOREIGN KEY (id_etudiant) REFERENCES etudiant(id_etudiant);
+ALTER TABLE voter ADD FOREIGN KEY (id_probleme) REFERENCES probleme(id_probleme);
+ALTER TABLE recevoir ADD FOREIGN KEY (id_notification) REFERENCES notification(id_notification);
+ALTER TABLE recevoir ADD FOREIGN KEY (id_etudiant) REFERENCES etudiant(id_etudiant);
+
+

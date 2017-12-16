@@ -9,8 +9,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.projetFinal.model.metier.Filiere;
-import com.projetFinal.model.metier.Personne;
 import com.projetFinal.model.metier.Status;
 
 @Repository

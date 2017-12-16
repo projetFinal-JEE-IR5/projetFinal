@@ -1,7 +1,7 @@
 package com.projetFinal.model.metier;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,10 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Personne {
+public class DirEtudes {
 	@Id
 	@GeneratedValue
-	private Integer idPersonne;
+	private Integer idDirEtudes;
 	@Basic
 	private String nom;
 	@Basic
@@ -21,46 +21,29 @@ public class Personne {
 	private String login;
 	@Basic
 	private String password;
-	@Basic
-	private int nbVoteAutorise;
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "ID_ROLE", unique = false)
-	private Role role;
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_FILIERE", unique = false)
 	private Filiere filiere;
-	
 
-	public Personne() {
+	public DirEtudes() {
 	}
 
-	public Personne(Integer idPersonne, String nom, String prenom, String login, String password, Integer nbVoteAutorise,
-			Role role, Filiere filiere) {
+	public DirEtudes(Integer idDirEtudes, String nom, String prenom, String login, String password, Filiere filiere) {
 		super();
-		this.idPersonne = idPersonne;
+		this.idDirEtudes = idDirEtudes;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.login = login;
 		this.password = password;
-		this.nbVoteAutorise = nbVoteAutorise;
-		this.role = role;
 		this.filiere = filiere;
 	}
 
-	public int getNbVoteAutorise() {
-		return nbVoteAutorise;
+	public Integer getIdDirEtudes() {
+		return idDirEtudes;
 	}
 
-	public void setNbVoteAutorise(int nbVoteAutorise) {
-		this.nbVoteAutorise = nbVoteAutorise;
-	}
-
-	public Integer getIdPersonne() {
-		return idPersonne;
-	}
-
-	public void setIdPersonne(Integer idPersonne) {
-		this.idPersonne = idPersonne;
+	public void setIdDirEtudes(Integer idDirEtudes) {
+		this.idDirEtudes = idDirEtudes;
 	}
 
 	public String getNom() {
@@ -93,14 +76,6 @@ public class Personne {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public Filiere getFiliere() {

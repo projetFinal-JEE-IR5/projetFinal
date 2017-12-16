@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.projetFinal.model.dao.PersonneDAO;
+import com.projetFinal.model.dao.EtudiantDAO;
 import com.projetFinal.model.dao.ProblemeDAO;
 import com.projetFinal.model.dao.StatusDAO;
-import com.projetFinal.model.metier.Personne;
+import com.projetFinal.model.metier.Etudiant;
 import com.projetFinal.model.metier.Probleme;
 import com.projetFinal.model.metier.Status;
 
@@ -25,7 +25,7 @@ public class ProblemeController {
 	private ProblemeDAO problemeDAO;
 	
 	@Autowired
-	private PersonneDAO personneDAO;
+	private EtudiantDAO etudiantDAO;
 	
 	@Autowired
 	private StatusDAO statusDAO;
@@ -61,14 +61,14 @@ public class ProblemeController {
 	public String soumettreProbleme(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		String objet = formValues.get("objet");
 		String contenu = formValues.get("contenu");
-		Personne personne = personneDAO.getPersonneById(session.getCurrentUserId());
+		Etudiant etudiant = etudiantDAO.getEtudiantById(session.getCurrentUserId());
 		Status status = statusDAO.getStatusById(1);
 		String format = "ddMMyyHmmss"; 
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureProbleme = Long.valueOf(formater.format(date));
 		//long dateHeureProbleme = 1509380153;
-		Probleme unProbleme = new Probleme(null, objet, contenu, status, personne, dateHeureProbleme);
+		Probleme unProbleme = new Probleme(null, objet, contenu, status, etudiant, dateHeureProbleme);
 		problemeDAO.addProbleme(unProbleme);
 		//on affiche la nouvelle liste de pb
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();

@@ -22,7 +22,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="/">Home</a></li>
 					<li><a href="/personnes/informations">Informations</a></li>
-					<li><a href="/problemes/afficherProblemesEtu">Afficher Problèmes</a></li>
+					<li><a href="/problemes/afficherProblemesEtu">Problèmes</a></li>
 					<li><a href="#about">About</a></li>
 				</ul>
 			</div>
@@ -49,7 +49,7 @@
 					<tr th:each="item : ${listProblemes}">
 						<td th:text="${item.dateHeureProbleme}"></td>
 						<td th:text="${item.status.libelle}"></td>
-						<td th:text="${item.personne.prenom}+' '+${item.personne.nom}"></td>
+						<td th:text="${item.etudiant.prenom}+' '+${item.etudiant.nom}"></td>
 						<td th:text="${item.objet}"></td>
 						<td th:text="${item.contenu}"></td>
 						<td><button>+</button></td>

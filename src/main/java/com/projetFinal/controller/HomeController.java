@@ -1,6 +1,5 @@
 package com.projetFinal.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.projetFinal.model.dao.PersonneDAO;
-import com.projetFinal.model.metier.Personne;
+import com.projetFinal.model.metier.DirEtablissement;
+import com.projetFinal.model.metier.DirEtudes;
+import com.projetFinal.model.metier.Etudiant;
+import com.projetFinal.service.dao.ServicePersonnes;
 
 @Controller
 public class HomeController {
-	
+		
 	@Autowired
-	private PersonneDAO personneDAO;
+	private ServicePersonnes servicePersonnes;
 	
 	@Autowired
 	private SessionId session;
@@ -32,28 +33,27 @@ public class HomeController {
 		model.put("message", "Se connecter");
 		String menu="/welcome";
 		String login = formValues.get("login");
-		String password = formValues.get("password");		
-		List<Personne> listePersonne = personneDAO.getAllPersonne();
-		for (Personne personne : listePersonne) {
-			if(personne.getRole().getIdRole()==1) {
-				if(personne.getLogin().equals(login) && personne.getPassword().equals(password)) {
-					session.setCurrentUserId(personne.getIdPersonne());
-					menu = "/menuEtudiant";
-				}
-			}
-			if(personne.getRole().getIdRole()==2) {
-				if(personne.getLogin().equals(login) && personne.getPassword().equals(password)) {
-					session.setCurrentUserId(personne.getIdPersonne());
-					menu = "/menuDirecteurEtab";
-				}
-			}
-			if(personne.getRole().getIdRole()==3) {
-				if(personne.getLogin().equals(login) && personne.getPassword().equals(password)) {
-					session.setCurrentUserId(personne.getIdPersonne());
-					menu = "/menuDirecteurEtud";
-				}
-			}			
+		String password = formValues.get("password");
+
+		String typePersonne = servicePersonnes.trouverTypePersonne(login);
+		session.setCurrentTypePersonne(typePersonne);
+		
+		if (typePersonne=="dirEtablissement") {
+			DirEtablissement dirEtablissement = (DirEtablissement) servicePersonnes.getPersonnebyLoginPassword(login, password, typePersonne);
+			session.setCurrentUserId(dirEtablissement.getIdDirEtablissement());
+			menu = "/menuDirecteurEtab";
+			
+		}else if (typePersonne=="dirEtudes") {
+			DirEtudes dirEtudes = (DirEtudes) servicePersonnes.getPersonnebyLoginPassword(login, password, typePersonne);
+			session.setCurrentUserId(dirEtudes.getIdDirEtudes());
+			menu = "/menuDirecteurEtud";
+			
+		}else if (typePersonne=="etudiant") {
+			Etudiant etudiant = (Etudiant) servicePersonnes.getPersonnebyLoginPassword(login, password, typePersonne);
+			session.setCurrentUserId(etudiant.getIdEtudiant());
+			menu = "/menuEtudiant";
 		}
+		
 		model.put("login", login);
 		model.put("password", password);
 		return menu;
