@@ -4,7 +4,7 @@
 <title>projetFinal jee</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
 
@@ -20,8 +20,8 @@
 				<ul class="nav navbar-nav">
 					<li><a href="/">Home</a></li>
 					<li><a href="/personnes/informations">Mes informations</a></li>
-					<li><a href="/notification/afficherNotificationsDirEtu">Notifications</a></li>
-					<li><a href="/problemes/afficherProblemesDirEtu">Problèmes</a></li>
+					<li><a href="/notification/afficherNotificationsEtu">Notifications</a></li>
+					<li><a href="/problemes/afficherProblemesEtu">Problèmes</a></li>
 					<li><a href="#about">About</a></li>
 				</ul>
 			</div>
@@ -31,10 +31,22 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1 th:text="${login}+' connecté'"></h1>
-			
+			<h1>Notifications</h1>
+			<br></br> 
+			<table>
+				<thead>
+					<tr>
+						<td>Date - Heure</td>
+						<td>Envoyé par</td>
+						<td>Objet</td>
+						<td>Contenu</td>
+						<td>Supprimer</td>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 		</div>
-
 	</div>
 </body>
 </html>

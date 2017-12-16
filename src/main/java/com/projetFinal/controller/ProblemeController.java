@@ -40,16 +40,29 @@ public class ProblemeController {
 	public String afficherProblemesEtu(Map<String, Object> model) {
 		//sp.maMethode();		
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		/*
+		for (Probleme probleme : listProblemes) {
+			String dateHeure=Long.toString(probleme.getDateHeureProbleme());
+			dateHeure=dateHeure.substring(0, 2)+"/"+dateHeure.substring(2, 4)+"/"+dateHeure.substring(4, 6)+" "+dateHeure.substring(6, 7)+":"+dateHeure.substring(7, 9)+":"+dateHeure.substring(9, 11);
+		*/
 		model.put("listProblemes", listProblemes);
 		return "/afficherProblemesEtu";
 	}
 	
-	@GetMapping("/afficherProblemesDir")
-	public String afficherProblemesDir(Map<String, Object> model) {
+	@GetMapping("/afficherProblemesDirEtu")
+	public String afficherProblemesDirEtu(Map<String, Object> model) {
 		//sp.maMethode();		
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		return "/afficherProblemesDir";
+		return "/afficherProblemesDirEtu";
+	}
+	
+	@GetMapping("/afficherProblemesDirEta")
+	public String afficherProblemesDirEta(Map<String, Object> model) {
+		//sp.maMethode();		
+		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		model.put("listProblemes", listProblemes);
+		return "/afficherProblemesDirEta";
 	}
 	
 	@GetMapping("/ajouterProbleme")
@@ -74,5 +87,35 @@ public class ProblemeController {
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
 		model.put("listProblemes", listProblemes);
 		return "/afficherProblemesEtu";
+	}	
+	
+	@GetMapping("/supprProblemesResolus")
+	public String supprimerProblemesResolus(Map<String, Object> model) {		
+		problemeDAO.deleteProblemesResolus();
+		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		model.put("listProblemes", listProblemes);
+		return "/afficherProblemesDir";
+	}
+	
+	@GetMapping("/limiterNbPbDirEtu")
+	public String limiterNbPbDirEtu() {
+		return "/limiterNbPbDirEtu";
+	}
+	
+	@PostMapping("/validerLimNbPbDirEtu")
+	public String validerLimNbPbDirEtu(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
+		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
+		return "/afficherProblemesDirEtu"; 
+	}	
+	
+	@GetMapping("/limiterNbPbDirEta")
+	public String limiterNbPbDirEta() {
+		return "/limiterNbPbDirEta";
+	}
+	
+	@PostMapping("/validerLimNbPbDirEta")
+	public String validerLimNbPbDirEta(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
+		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
+		return "/afficherProblemesDirEta";
 	}	
 }

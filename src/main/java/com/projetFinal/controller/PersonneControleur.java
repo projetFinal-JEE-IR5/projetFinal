@@ -26,7 +26,7 @@ public class PersonneControleur {
 	public String infoPersonne(Map<String, String> model) {
 		Integer currentUserId = session.getCurrentUserId();
 		String currentTypePersonne = session.getCurrentTypePersonne();
-
+ 
 		if (currentTypePersonne == "dirEtablissement") {
 			DirEtablissement dirEtablissement = (DirEtablissement) servicePersonnes.getPersonne(currentUserId, currentTypePersonne);
 			model.put("typePersonne", currentTypePersonne);

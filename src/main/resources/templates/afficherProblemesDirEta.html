@@ -22,8 +22,8 @@
 				<ul class="nav navbar-nav">
 					<li><a href="/">Home</a></li>
 					<li><a href="/personnes/informations">Mes informations</a></li>
-					<li><a href="/notification/afficherNotificationsEtu">Notifications</a></li>
-					<li><a href="/problemes/afficherProblemesEtu">Problèmes</a></li>
+					<li><a href="/notification/afficherNotificationsDirEta">Notifications</a></li>
+					<li><a href="/problemes/afficherProblemesDirEta">Problèmes</a></li>
 					<li><a href="#about">About</a></li>
 				</ul>
 			</div>
@@ -50,16 +50,18 @@
 					<tr th:each="item : ${listProblemes}">
 						<td th:text="${item.dateHeureProbleme}"></td>
 						<td th:text="${item.status.libelle}"></td>
-						<td th:text="${item.etudiant.prenom}+' '+${item.etudiant.nom}"></td>
+						<td th:text="${item.personne.prenom}+' '+${item.personne.nom}"></td>
 						<td th:text="${item.objet}"></td>
 						<td th:text="${item.contenu}"></td>
-						<td><button>+</button></td>
+						<td></td>
 						<!-- <td th:text="${item.vote}"></td> -->	
 					</tr>
 				</tbody>
 			</table>
 			<br></br>
-			<a href="/problemes/ajouterProbleme"><input type="button" name="addPb" value="Soumettre un problème"/></a>
+			<a href="/problemes/supprProblemesResolus"><input type="button" name="delPb" value="Supprimer problèmes résolus"/></a>
+			<br></br><br></br>
+			<a href="/problemes/limiterNbPbDirEta"><input type="button" name="limnbPb" value="Limiter nb problème"/></a>
 		</div>
 	</div>
 </body>
