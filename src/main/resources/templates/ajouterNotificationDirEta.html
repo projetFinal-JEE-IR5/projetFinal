@@ -22,8 +22,8 @@
 				<ul class="nav navbar-nav">
 					<li><a href="/">Home</a></li>
 					<li><a href="/personnes/informations">Mes informations</a></li>
-					<li><a href="/notification/afficherNotificationsDirEtu">Notifications</a></li>
-					<li><a href="/problemes/afficherProblemesDirEtu">Problèmes</a></li>
+					<li><a href="/notification/afficherNotificationsDirEta">Notifications</a></li>
+					<li><a href="/problemes/afficherProblemesDirEta">Problèmes</a></li>
 					<li><a href="#about">About</a></li>
 				</ul>
 			</div>
@@ -31,15 +31,16 @@
 	</nav>
 
 	<div class="container">
+
 		<div class="starter-template">
-			<h1>Limiter nb problème</h1>
+			<h1>Envoyer une notification</h1>
 			<br></br> 
-			<h2 th:text="${message}"></h2>
 			<form method="post">
-				<label>Nb problème /étudiant/jour :</label> 
-				<input type="text" name="nbPb"></input>
+				<label>Contenu :</label>
+				<br></br>
+				<textarea name="contenu" rows="10" cols="50"></textarea>
 				<br></br><br></br> 
-				<button type="submit">Soumettre</button>
+				<button type="submit">Envoyer</button>
 			</form>
 		</div>
 	</div>

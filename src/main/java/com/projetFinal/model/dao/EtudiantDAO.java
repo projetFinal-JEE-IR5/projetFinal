@@ -33,8 +33,8 @@ public class EtudiantDAO {
 	public List<Etudiant> getEtudiantByFiliere(int idFiliere) {
 		TypedQuery<Etudiant> q = em.createQuery("select e from Etudiant e where e.idFiliere=:idFiliere",
 				Etudiant.class);
-		List<Etudiant> listeEtudiant = q.getResultList();
-		return listeEtudiant;
+		List<Etudiant> listeEtudiants = q.getResultList();
+		return listeEtudiants;
 	}
 
 	public Etudiant verifierLoginPassword(String login, String password) {
@@ -65,5 +65,12 @@ public class EtudiantDAO {
 			verif = true;
 		}
 		return verif;
+	}
+	
+	public void setNbPbAutorise(Integer nb) {
+		List<Etudiant> listeEtudiants = getAllEtudiant();
+		for (Etudiant etudiant : listeEtudiants) {
+			etudiant.setNbProbAutoriseJour(nb);
+		}
 	}
 }

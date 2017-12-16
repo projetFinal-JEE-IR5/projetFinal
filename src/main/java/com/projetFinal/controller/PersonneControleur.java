@@ -23,33 +23,24 @@ public class PersonneControleur {
 	SessionId session;
 
 	@GetMapping("/informations")
-	public String infoPersonne(Map<String, String> model) {
+	public String infoPersonne(Map<String, Object> model) {
 		Integer currentUserId = session.getCurrentUserId();
 		String currentTypePersonne = session.getCurrentTypePersonne();
  
 		if (currentTypePersonne == "dirEtablissement") {
 			DirEtablissement dirEtablissement = (DirEtablissement) servicePersonnes.getPersonne(currentUserId, currentTypePersonne);
-			model.put("typePersonne", currentTypePersonne);
-			model.put("login", dirEtablissement.getLogin());
-			model.put("prenom", dirEtablissement.getPrenom());
-			model.put("nom", dirEtablissement.getNom());
+			model.put("role", "Directeur Etablissement");
+			model.put("typePersonne", dirEtablissement);
 			
 		} else if (currentTypePersonne == "dirEtudes")	{
 			DirEtudes dirEtudes = (DirEtudes) servicePersonnes.getPersonne(currentUserId, currentTypePersonne);
-			model.put("typePersonne", currentTypePersonne); 
-			model.put("login", dirEtudes.getLogin());
-			model.put("prenom", dirEtudes.getPrenom());
-			model.put("nom", dirEtudes.getNom());
-			model.put("filiere", dirEtudes.getFiliere().getNomFiliere());
+			model.put("role", "Directeur Etudes");
+			model.put("typePersonne", dirEtudes);
 			
 		} else if (currentTypePersonne == "etudiant") {
 			Etudiant etudiant = (Etudiant) servicePersonnes.getPersonne(currentUserId, currentTypePersonne);
-			model.put("typePersonne", currentTypePersonne);
-			model.put("login", etudiant.getLogin());
-			model.put("prenom", etudiant.getPrenom());
-			model.put("nom", etudiant.getNom());
-			model.put("filiere", etudiant.getFiliere().getNomFiliere());
-			model.put("nbprob", etudiant.getNbProbAutoriseJour().toString());
+			model.put("role", "Etudiant");
+			model.put("typePersonne", etudiant);
 		}
 
 		return "/informations";
