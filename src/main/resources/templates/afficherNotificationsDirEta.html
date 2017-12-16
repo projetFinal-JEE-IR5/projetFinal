@@ -38,12 +38,18 @@
 					<tr>
 						<td>Date - Heure</td>
 						<td>Envoyé par</td>
-						<td>Objet</td>
 						<td>Contenu</td>
 						<td>Supprimer</td>
 					</tr>
 				</thead>
 				<tbody>
+					<tr th:each="item : ${listeNotification}">
+						<td th:text="${item.dateHeureNotif}"></td>
+						<!-- <td th:text="${item.dir_etablissement.prenom}+' '+${item.dir_etablissement.nom}"></td> -->
+						<td></td>
+						<td th:text="${item.contenu}"></td>
+						<td><button>-</button></td>
+					</tr>
 				</tbody>
 			</table>
 			<br></br>
