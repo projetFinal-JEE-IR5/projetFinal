@@ -11,11 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.projetFinal.model.metier.DirEtablissement;
-import com.projetFinal.model.metier.DirEtudes;
-import com.projetFinal.model.metier.Etudiant;
 import com.projetFinal.model.metier.Notification;
-import com.projetFinal.model.metier.Probleme;
-import com.projetFinal.model.metier.Status;
 import com.projetFinal.service.dao.ServiceNotification;
 
 @Controller
@@ -26,7 +22,7 @@ public class NotificationControleur {
 	private ServiceNotification serviceNotification;
 	
 	@Autowired
-	SessionId session;
+	Session session;
 
 	@GetMapping("/afficherNotificationsEtu")
 	public String afficherNotificationsEtu(Map<String, Object> model) {
@@ -58,7 +54,7 @@ public class NotificationControleur {
 	public String envoyerNotificationAllEtu(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		String contenu = formValues.get("contenu");
 		DirEtablissement dirEtablissement = serviceNotification.getDirEtaById(session.getCurrentUserId());
-		String format = "ddMMyyHmmss"; 
+		String format = "ddMMyyHmmss";
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureNotif = Long.valueOf(formater.format(date));

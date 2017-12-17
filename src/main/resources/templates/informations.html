@@ -1,46 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>projetFinal jee</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-
+<head>
+<title>Projet Final JEE</title>
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
-
 </head>
-<body>
+<div th:fragment="informations" class="container">
 
-	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Spring Boot</a>
-			</div>
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/">Home</a></li>
-					<li><a href="/personnes/informations">Mes informations</a></li>
-					<li><a href="/notification/afficherNotificationsEtu">Notifications</a></li>
-					<li><a href="/problemes/afficherProblemesEtu">Problèmes</a></li>
-					<li><a href="#about">About</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	<div class="container">
-
-		<div class="starter-template">
-			<h1>Informations</h1>
-			<br></br> 
-			<div th:text="'typePersonne : '+${role}"></div>
-			<div th:text="'login : '+${typePersonne.login}"></div>
-			<div th:text="'prénom : '+${typePersonne.prenom}"></div>
-			<div th:text="'nom : '+${typePersonne.nom}"></div>
-			<div th:text="'filière : '+${typePersonne.filiere.nomFiliere}"></div>
-			<div th:text="'nombre de problèmes autorisé par jour : '+${typePersonne.nbProbAutoriseJour}"></div>
-		</div>
-
+	<div class="starter-template">
+		<h1>Informations</h1>
+		<br></br>
+		<div th:text="'typePersonne : '+${role}"></div>
+		<div th:text="'login : '+${personne.login}"></div>
+		<div th:text="'prénom : '+${personne.prenom}"></div>
+		<div th:text="'nom : '+${personne.nom}"></div>
+		<div th:if="${typePersonne} != 'dirEtablissement'"
+		th:text="'filière : '+${personne.filiere.nomFiliere}"></div>
+		<div th:if="${typePersonne} == 'etudiant'"
+		th:text="'nombre de problèmes autorisé par jour : '+${personne.nbProbAutoriseJour}"></div>
 	</div>
-</body>
+
+</div>
 </html>

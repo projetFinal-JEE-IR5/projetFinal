@@ -32,7 +32,7 @@ public class ProblemeController {
 	private StatusDAO statusDAO;
 	
 	@Autowired
-	SessionId session;
+	Session session;
 	
 	//@Autowired
 	//private ServiceProbleme sp;

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<head>
+<title>Projet Final JEE</title>
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
+</head>
+
+<body>
+
+	<nav th:replace="fragments/menu :: menu (${typePersonne})"></nav>
+
+	<div th:replace="@{${action}} :: ${action}"></div>
+	
+</body>
+</html>

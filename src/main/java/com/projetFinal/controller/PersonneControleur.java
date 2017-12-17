@@ -15,34 +15,37 @@ import com.projetFinal.service.dao.ServicePersonnes;
 @Controller
 @RequestMapping("/personnes")
 public class PersonneControleur {
+	String template="/fragments/template";
 
 	@Autowired
 	private ServicePersonnes servicePersonnes;
 
 	@Autowired
-	SessionId session;
+	Session session;
 
 	@GetMapping("/informations")
 	public String infoPersonne(Map<String, Object> model) {
 		Integer currentUserId = session.getCurrentUserId();
 		String currentTypePersonne = session.getCurrentTypePersonne();
+		String action = "informations"; 
  
 		if (currentTypePersonne == "dirEtablissement") {
 			DirEtablissement dirEtablissement = (DirEtablissement) servicePersonnes.getPersonne(currentUserId, currentTypePersonne);
 			model.put("role", "Directeur Etablissement");
-			model.put("typePersonne", dirEtablissement);
+			model.put("personne", dirEtablissement);
 			
 		} else if (currentTypePersonne == "dirEtudes")	{
 			DirEtudes dirEtudes = (DirEtudes) servicePersonnes.getPersonne(currentUserId, currentTypePersonne);
 			model.put("role", "Directeur Etudes");
-			model.put("typePersonne", dirEtudes);
+			model.put("personne", dirEtudes);
 			
 		} else if (currentTypePersonne == "etudiant") {
 			Etudiant etudiant = (Etudiant) servicePersonnes.getPersonne(currentUserId, currentTypePersonne);
 			model.put("role", "Etudiant");
-			model.put("typePersonne", etudiant);
+			model.put("personne", etudiant);
 		}
-
-		return "/informations";
+		model.put("action", action);
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 }

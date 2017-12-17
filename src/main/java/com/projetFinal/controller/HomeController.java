@@ -15,23 +15,24 @@ import com.projetFinal.service.dao.ServicePersonnes;
 
 @Controller
 public class HomeController{
+	String template="/fragments/template";
 	
 	@Autowired
 	private ServicePersonnes servicePersonnes;
 	
 	@Autowired
-	private SessionId session;
+	private Session session;
 
 	@GetMapping("/")
-	public String welcome(Map<String, String> model) {
+	public String connection(Map<String, String> model) {
 		model.put("message", "Se connecter");
-		return "welcome";
+		return "connection";
 	}
 	
 	@PostMapping("/")
 	public String connexion(@RequestParam Map<String, String> formValues, Map<String, String> model) {
 		model.put("message", "Se connecter");
-		String menu="/welcome";
+		String action = "connection"; 
 		String login = formValues.get("login");
 		String password = formValues.get("password");
 
@@ -41,21 +42,27 @@ public class HomeController{
 		if (typePersonne=="dirEtablissement") {
 			DirEtablissement dirEtablissement = (DirEtablissement) servicePersonnes.getPersonnebyLoginPassword(login, password, typePersonne);
 			session.setCurrentUserId(dirEtablissement.getIdDirEtablissement());
-			menu = "/menuDirecteurEtab";
+			session.setCurrentLogin(dirEtablissement.getLogin());
+			action = "welcome";
 			
 		}else if (typePersonne=="dirEtudes") {
 			DirEtudes dirEtudes = (DirEtudes) servicePersonnes.getPersonnebyLoginPassword(login, password, typePersonne);
 			session.setCurrentUserId(dirEtudes.getIdDirEtudes());
-			menu = "/menuDirecteurEtud";
+			session.setCurrentLogin(dirEtudes.getLogin());
+			action = "welcome";
 			
 		}else if (typePersonne=="etudiant") {
 			Etudiant etudiant = (Etudiant) servicePersonnes.getPersonnebyLoginPassword(login, password, typePersonne);
 			session.setCurrentUserId(etudiant.getIdEtudiant());
-			menu = "/menuEtudiant";
+			session.setCurrentLogin(etudiant.getLogin());
+			action = "welcome"; 
+			
 		}
 		
+		model.put("action", action);
+		model.put("typePersonne", typePersonne);
 		model.put("login", login);
-		return menu;
+		return template; 
 	}
 //http://www.thymeleaf.org/doc/articles/layouts.html
 }
