@@ -1,14 +1,20 @@
 package com.projetFinal.model.metier;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Probleme")
 public class Probleme {
 	@Id
 	@GeneratedValue
@@ -26,6 +32,9 @@ public class Probleme {
 	@Basic
 	private long dateHeureProbleme;
 
+	@ManyToMany(mappedBy = "problemes")
+	private Set<Etudiant> etudiants = new HashSet<>();
+
 	public Probleme() {
 	}
 
@@ -38,6 +47,18 @@ public class Probleme {
 		this.status = status;
 		this.etudiant = etudiant;
 		this.dateHeureProbleme = dateHeureProbleme;
+	}
+
+	public Probleme(Integer idProbleme, String objet, String contenu, Status status, Etudiant etudiant,
+			long dateHeureProbleme, Set<Etudiant> etudiants) {
+		super();
+		this.idProbleme = idProbleme;
+		this.objet = objet;
+		this.contenu = contenu;
+		this.status = status;
+		this.etudiant = etudiant;
+		this.dateHeureProbleme = dateHeureProbleme;
+		this.etudiants = etudiants;
 	}
 
 	public Integer getIdProbleme() {
@@ -86,5 +107,13 @@ public class Probleme {
 
 	public void setDateHeureProbleme(long dateHeureProbleme) {
 		this.dateHeureProbleme = dateHeureProbleme;
+	}
+
+	public Set<Etudiant> getEtudiants() {
+		return etudiants;
+	}
+
+	public void setEtudiants(Set<Etudiant> etudiants) {
+		this.etudiants = etudiants;
 	}
 }

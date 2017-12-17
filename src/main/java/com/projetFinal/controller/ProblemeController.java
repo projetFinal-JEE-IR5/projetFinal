@@ -1,6 +1,5 @@
 package com.projetFinal.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +20,7 @@ import com.projetFinal.model.metier.Status;
 @Controller
 @RequestMapping("/problemes")
 public class ProblemeController {
+	String template="/fragments/template";
 	
 	@Autowired
 	private ProblemeDAO problemeDAO;
@@ -35,45 +35,58 @@ public class ProblemeController {
 	Session session;
 	
 	//@Autowired
-	//private ServiceProbleme sp;
+	//private ServiceProbleme serviceProbleme;
 
 	@GetMapping("/afficherProblemesEtu")
 	public String afficherProblemesEtu(Map<String, Object> model) {
-		//sp.maMethode();		
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
-		List<Integer> listNbVotes = new ArrayList<Integer>();
-		for (Probleme probleme : listProblemes) {
-			listNbVotes.add(problemeDAO.getNbVotesProbleme(probleme.getIdProbleme()));
-		}
+//		List<Integer> listNbVotes = new ArrayList<Integer>();
+//		for (Probleme probleme : listProblemes) {
+//			listNbVotes.add(problemeDAO.getNbVotesProbleme(probleme.getIdProbleme()));
+//		}
 		/*
 		for (Probleme probleme : listProblemes) {
 			String dateHeure=Long.toString(probleme.getDateHeureProbleme());
 			dateHeure=dateHeure.substring(0, 2)+"/"+dateHeure.substring(2, 4)+"/"+dateHeure.substring(4, 6)+" "+dateHeure.substring(6, 7)+":"+dateHeure.substring(7, 9)+":"+dateHeure.substring(9, 11);
 		*/
-		model.put("listNbVotes", listNbVotes);
+//		model.put("listNbVotes", listNbVotes);
 		model.put("listProblemes", listProblemes);
-		return "/afficherProblemesEtu";
+		String action = "afficherProblemesEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@GetMapping("/afficherProblemesDirEtu")
 	public String afficherProblemesDirEtu(Map<String, Object> model) {
-		//sp.maMethode();		
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		return "/afficherProblemesDirEtu";
+		String action = "afficherProblemesDirEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@GetMapping("/afficherProblemesDirEta")
 	public String afficherProblemesDirEta(Map<String, Object> model) {
-		//sp.maMethode();		
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		return "/afficherProblemesDirEta";
+		String action = "afficherProblemesDirEta";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@GetMapping("/ajouterProbleme")
-	public String ajouterProbleme() {
-		return "/ajouterProbleme";
+	public String ajouterProbleme(Map<String, Object> model) {
+		String action = "ajouterProbleme";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@PostMapping("/ajouterProbleme")
@@ -92,7 +105,11 @@ public class ProblemeController {
 		//on affiche la nouvelle liste de pb
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		return "/afficherProblemesEtu";
+		String action = "afficherProblemesEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}	
 	
 	@GetMapping("/supprProblemesResolus")
@@ -100,12 +117,20 @@ public class ProblemeController {
 		problemeDAO.deleteProblemesResolus();
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		return "/afficherProblemesDir";
+		String action = "afficherProblemesDir";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@GetMapping("/limiterNbPbDirEtu")
-	public String limiterNbPbDirEtu() {
-		return "/limiterNbPbDirEtu";
+	public String limiterNbPbDirEtu(Map<String, Object> model) {
+		String action = "limiterNbPbDirEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@PostMapping("/limiterNbPbDirEtu")
@@ -113,12 +138,20 @@ public class ProblemeController {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
 		etudiantDAO.setNbPbAutorise(nbPb);
 		model.put("message", "Limite validée");
-		return "/limiterNbPbDirEtu";
-	}	
+		String action = "limiterNbPbDirEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
+	}
 	
 	@GetMapping("/limiterNbPbDirEta")
-	public String limiterNbPbDirEta() {
-		return "/limiterNbPbDirEta";
+	public String limiterNbPbDirEta(Map<String, Object> model) {
+		String action = "limiterNbPbDirEta";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@PostMapping("/limiterNbPbDirEta")
@@ -126,6 +159,10 @@ public class ProblemeController {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
 		etudiantDAO.setNbPbAutorise(nbPb);
 		model.put("message", "Limite validée");
-		return "/limiterNbPbDirEta";
+		String action = "limiterNbPbDirEta";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}	
 }

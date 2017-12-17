@@ -22,7 +22,7 @@ public class PersonneControleur {
 
 	@Autowired
 	Session session;
-
+	
 	@GetMapping("/informations")
 	public String infoPersonne(Map<String, Object> model) {
 		Integer currentUserId = session.getCurrentUserId();

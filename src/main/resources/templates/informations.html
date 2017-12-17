@@ -2,11 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<head>
-<title>Projet Final JEE</title>
-<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
-</head>
 <div th:fragment="informations" class="container">
 
 	<div class="starter-template">
@@ -17,10 +12,10 @@
 		<div th:text="'prénom : '+${personne.prenom}"></div>
 		<div th:text="'nom : '+${personne.nom}"></div>
 		<div th:if="${typePersonne} != 'dirEtablissement'"
-		th:text="'filière : '+${personne.filiere.nomFiliere}"></div>
+			th:text="'filière : '+${personne.filiere.nomFiliere}"></div>
 		<div th:if="${typePersonne} == 'etudiant'"
-		th:text="'nombre de problèmes autorisé par jour : '+${personne.nbProbAutoriseJour}"></div>
+			th:text="'nombre de problèmes autorisé par jour : '+${personne.nbProbAutoriseJour}"></div>
 	</div>
-
 </div>
+
 </html>

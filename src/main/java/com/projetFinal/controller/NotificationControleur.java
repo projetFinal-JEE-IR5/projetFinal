@@ -17,37 +17,54 @@ import com.projetFinal.service.dao.ServiceNotification;
 @Controller
 @RequestMapping("/notification")
 public class NotificationControleur {
-	
+	String template="/fragments/template";
+
 	@Autowired
 	private ServiceNotification serviceNotification;
 	
 	@Autowired
 	Session session;
-
+	
 	@GetMapping("/afficherNotificationsEtu")
 	public String afficherNotificationsEtu(Map<String, Object> model) {
 		List<Notification> listeNotification = serviceNotification.getNotificationsByIdEtu(session.getCurrentUserId());
 		model.put("listeNotification", listeNotification);
-		return "/afficherNotificationsEtu";
+		String action = "afficherNotificationsEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@GetMapping("/afficherNotificationsDirEtu")
 	public String afficherNotificationsDirEtu(Map<String, Object> model) {
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
 		model.put("listeNotification", listeNotification);
-		return "/afficherNotificationsDirEtu";
+		String action = "afficherNotificationsDirEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template; 
 	}
 	
 	@GetMapping("/afficherNotificationsDirEta")
 	public String afficherNotificationsDirEta(Map<String, Object> model) {
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
 		model.put("listeNotification", listeNotification);
-		return "/afficherNotificationsDirEta";
+		String action = "afficherNotificationsDirEta";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@GetMapping("/ajouterNotificationDirEta")
-	public String ajouterNotificationDirEta() {
-		return "/ajouterNotificationDirEta";
+	public String ajouterNotificationDirEta(Map<String, Object> model) {
+		String action = "ajouterNotificationDirEta";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@PostMapping("/ajouterNotificationDirEta")
@@ -64,12 +81,20 @@ public class NotificationControleur {
 		//on affiche la nouvelle liste de notif
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
 		model.put("listeNotification", listeNotification);
-		return "/afficherNotificationsDirEta";
-	}	
+		String action = "afficherNotificationsDirEta";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
+	}
 	
 	@GetMapping("/ajouterNotificationDirEtu")
-	public String ajouterNotificationDirEtu() {
-		return "/ajouterNotificationDirEtu";
+	public String ajouterNotificationDirEtu(Map<String, Object> model) {
+		String action = "ajouterNotificationDirEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
 	}
 	
 	@PostMapping("/ajouterNotificationDirEtu")
@@ -86,6 +111,10 @@ public class NotificationControleur {
 		//on affiche la nouvelle liste de notif
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
 		model.put("listeNotification", listeNotification);
-		return "/afficherNotificationsDirEtu";
-	}	
+		String action = "afficherNotificationsDirEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
+	}
 }

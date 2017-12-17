@@ -1,60 +1,34 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>projetFinal jee</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<div th:fragment="afficherNotificationsDirEta" class="container">
 
-<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css" />
-
-</head>
-<body>
-
-	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Spring Boot</a>
-			</div>
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/">Home</a></li>
-					<li><a href="/personnes/informations">Mes informations</a></li>
-					<li><a href="/notification/afficherNotificationsDirEta">Notifications</a></li>
-					<li><a href="/problemes/afficherProblemesDirEta">Problèmes</a></li>
-					<li><a href="#about">About</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	<div class="container">
-
-		<div class="starter-template">
-			<h1>Notifications</h1>
-			<br></br> 
-			<table>
-				<thead>
-					<tr>
-						<td>Date - Heure</td>
-						<td>Envoyé par</td>
-						<td>Contenu</td>
-						<td>Supprimer</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="item : ${listeNotification}">
-						<td th:text="${item.dateHeureNotif}"></td>
-						<!-- <td th:text="${item.dir_etablissement.prenom}+' '+${item.dir_etablissement.nom}"></td> -->
-						<td></td>
-						<td th:text="${item.contenu}"></td>
-						<td><button>-</button></td>
-					</tr>
-				</tbody>
-			</table>
-			<br></br>
-			<a href="/notification/ajouterNotificationDirEta"><input type="button" name="addNotif" value="Envoyer une notification"/></a>
-		</div>
+	<div class="starter-template">
+		<h1>Notifications</h1>
+		<br></br>
+		<table>
+			<thead>
+				<tr>
+					<td>Date - Heure</td>
+					<td>Envoyé par</td>
+					<td>Contenu</td>
+					<td>Supprimer</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${listeNotification}">
+					<td th:text="${item.dateHeureNotif}"></td>
+					<!-- <td th:text="${item.dir_etablissement.prenom}+' '+${item.dir_etablissement.nom}"></td> -->
+					<td></td>
+					<td th:text="${item.contenu}"></td>
+					<td><button>-</button></td>
+				</tr>
+			</tbody>
+		</table>
+		<br></br> <a href="/notification/ajouterNotificationDirEta"><input
+			type="button" name="addNotif" value="Envoyer une notification" /></a>
 	</div>
-</body>
+</div>
+
 </html>
