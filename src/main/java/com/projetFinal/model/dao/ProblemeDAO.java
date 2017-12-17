@@ -34,7 +34,7 @@ public class ProblemeDAO {
 	}
 		
 	public void deleteProblemesResolus() {
-		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p inner join Status s on p.idStatus=s.idStatus inner join Voter v on p.idProbleme=v.idProbleme where s.idStatus=2", Probleme.class);
+		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p join fetch p.status s where s.idStatus=2", Probleme.class);
 		List<Probleme> list = q.getResultList();
 		for (Probleme probleme : list) {
 			em.remove(probleme);

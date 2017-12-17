@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.projetFinal.model.dao.EtudiantDAO;
-import com.projetFinal.model.dao.ProblemeDAO;
-import com.projetFinal.model.dao.StatusDAO;
 import com.projetFinal.model.metier.Etudiant;
-import com.projetFinal.model.metier.Notification;
 import com.projetFinal.model.metier.Probleme;
 import com.projetFinal.model.metier.Status;
+import com.projetFinal.service.dao.ServiceProbleme;
 
 @Controller
 @RequestMapping("/problemes")
@@ -24,23 +21,14 @@ public class ProblemeController {
 	String template="/fragments/template";
 	
 	@Autowired
-	private ProblemeDAO problemeDAO;
-	
-	@Autowired
-	private EtudiantDAO etudiantDAO;
-	
-	@Autowired
-	private StatusDAO statusDAO;
-	
-	@Autowired
 	Session session;
 	
-	//@Autowired
-	//private ServiceProbleme serviceProbleme;
+	@Autowired
+	private ServiceProbleme serviceProbleme;
 
 	@GetMapping("/afficherProblemesEtu")
 	public String afficherProblemesEtu(Map<String, Object> model) {
-		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		/*
 		for (Probleme probleme : listProblemes) {
 			String dateHeure=Long.toString(probleme.getDateHeureProbleme());
@@ -56,7 +44,7 @@ public class ProblemeController {
 	
 	@GetMapping("/afficherProblemesDirEtu")
 	public String afficherProblemesDirEtu(Map<String, Object> model) {
-		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
 		String action = "afficherProblemesDirEtu";
 		model.put("action", action);
@@ -67,7 +55,7 @@ public class ProblemeController {
 	
 	@GetMapping("/afficherProblemesDirEta")
 	public String afficherProblemesDirEta(Map<String, Object> model) {
-		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
 		String action = "afficherProblemesDirEta";
 		model.put("action", action);
@@ -89,17 +77,17 @@ public class ProblemeController {
 	public String soumettreProbleme(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		String objet = formValues.get("objet");
 		String contenu = formValues.get("contenu");
-		Etudiant etudiant = etudiantDAO.getEtudiantById(session.getCurrentUserId());
-		Status status = statusDAO.getStatusById(1);
+		Etudiant etudiant = serviceProbleme.getEtudiantById(session.getCurrentUserId());
+		Status status = serviceProbleme.getStatusById(1);
 		String format = "ddMMyyHmmss"; 
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureProbleme = Long.valueOf(formater.format(date));
 		//long dateHeureProbleme = 1509380153;
 		Probleme unProbleme = new Probleme(null, objet, contenu, status, etudiant, dateHeureProbleme, 0);
-		problemeDAO.addProbleme(unProbleme);
+		serviceProbleme.addProbleme(unProbleme);
 		//on affiche la nouvelle liste de pb
-		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
 		String action = "afficherProblemesEtu";
 		model.put("action", action);
@@ -110,10 +98,10 @@ public class ProblemeController {
 	
 	@GetMapping("/supprProblemesResolus")
 	public String supprimerProblemesResolus(Map<String, Object> model) {		
-		problemeDAO.deleteProblemesResolus();
-		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		serviceProbleme.deleteProblemesResolus();
+		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		String action = "afficherProblemesDir";
+		String action = "afficherProblemesDirEta";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -132,7 +120,7 @@ public class ProblemeController {
 	@PostMapping("/limiterNbPbDirEtu")
 	public String validerLimNbPbDirEtu(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
-		etudiantDAO.setNbPbAutorise(nbPb);
+		serviceProbleme.setNbPbAutorise(nbPb);
 		model.put("message", "Limite validée");
 		String action = "limiterNbPbDirEtu";
 		model.put("action", action);
@@ -153,7 +141,7 @@ public class ProblemeController {
 	@PostMapping("/limiterNbPbDirEta")
 	public String validerLimNbPbDirEta(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
-		etudiantDAO.setNbPbAutorise(nbPb);
+		serviceProbleme.setNbPbAutorise(nbPb);
 		model.put("message", "Limite validée");
 		String action = "limiterNbPbDirEta";
 		model.put("action", action);
@@ -165,8 +153,8 @@ public class ProblemeController {
 	@PostMapping("/afficherProblemesEtu")
 	public String addVoteProbleme(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		Integer idProbleme = Integer.parseInt(formValues.get("idProbleme"));
-		problemeDAO.addVoteProbleme(idProbleme);
-		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		serviceProbleme.addVoteProbleme(idProbleme);
+		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
 		String action = "afficherProblemesEtu";
 		model.put("action", action);

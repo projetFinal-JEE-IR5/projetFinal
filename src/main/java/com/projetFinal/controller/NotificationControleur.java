@@ -134,10 +134,29 @@ public class NotificationControleur {
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureNotif = Long.valueOf(formater.format(date));
 		//long dateHeureProbleme = 1509380153;
-		Notification notification = new Notification(null, dateHeureNotif, contenu, null, dirEtablissement);
-		serviceNotification.addNotification(notification);
+		Notification newNotification = new Notification(null, dateHeureNotif, contenu, null, dirEtablissement);
+		serviceNotification.addNotification(newNotification);
 		//on affiche la nouvelle liste de notif
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
+		List<String> listeEmetteur = new ArrayList<String>();
+		List<Integer> compteur = new ArrayList<Integer>();
+		for (Notification notification : listeNotification) {
+			try {
+				listeEmetteur.add(notification.getDir_etablissement().getPrenom()+" "+notification.getDir_etablissement().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			try {
+				listeEmetteur.add(notification.getDir_etudes().getPrenom()+" "+notification.getDir_etudes().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		for(Integer i=0;i<listeEmetteur.size();i++) {
+			compteur.add(i);
+		}
+		model.put("compteur", compteur);
+		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
 		String action = "afficherNotificationsDirEta";
 		model.put("action", action);
@@ -164,10 +183,29 @@ public class NotificationControleur {
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureNotif = Long.valueOf(formater.format(date));
 		//long dateHeureProbleme = 1509380153;
-		Notification notification = new Notification(null, dateHeureNotif, contenu, null, dirEtablissement);
-		serviceNotification.addNotification(notification);
+		Notification newNotification = new Notification(null, dateHeureNotif, contenu, null, dirEtablissement);
+		serviceNotification.addNotification(newNotification);
 		//on affiche la nouvelle liste de notif
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
+		List<String> listeEmetteur = new ArrayList<String>();
+		List<Integer> compteur = new ArrayList<Integer>();
+		for (Notification notification : listeNotification) {
+			try {
+				listeEmetteur.add(notification.getDir_etablissement().getPrenom()+" "+notification.getDir_etablissement().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			try {
+				listeEmetteur.add(notification.getDir_etudes().getPrenom()+" "+notification.getDir_etudes().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		for(Integer i=0;i<listeEmetteur.size();i++) {
+			compteur.add(i);
+		}
+		model.put("compteur", compteur);
+		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
 		String action = "afficherNotificationsDirEtu";
 		model.put("action", action);
