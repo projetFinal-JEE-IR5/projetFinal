@@ -37,8 +37,7 @@ public class Notification {
 
 	}
 
-	public Notification(Integer idNotification, long dateHeureNotif, String contenu, DirEtudes dir_etudes,
-			DirEtablissement dir_etablissement) {
+	public Notification(Integer idNotification, long dateHeureNotif, String contenu, DirEtudes dir_etudes, DirEtablissement dir_etablissement) {
 		super();
 		this.idNotification = idNotification;
 		this.dateHeureNotif = dateHeureNotif;
@@ -47,8 +46,7 @@ public class Notification {
 		this.dir_etablissement = dir_etablissement;
 	}
 
-	public Notification(Integer idNotification, long dateHeureNotif, String contenu, DirEtudes dir_etudes,
-			DirEtablissement dir_etablissement, Set<Etudiant> etudiants) {
+	public Notification(Integer idNotification, long dateHeureNotif, String contenu, DirEtudes dir_etudes,DirEtablissement dir_etablissement, Set<Etudiant> etudiants) {
 		super();
 		this.idNotification = idNotification;
 		this.dateHeureNotif = dateHeureNotif;

@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.projetFinal.model.dao.DirEtablissementDAO;
+import com.projetFinal.model.dao.DirEtudesDAO;
 import com.projetFinal.model.dao.NotificationDAO;
 import com.projetFinal.model.metier.DirEtablissement;
+import com.projetFinal.model.metier.DirEtudes;
 import com.projetFinal.model.metier.Notification;
 
 @Repository
@@ -25,6 +27,9 @@ public class ServiceNotification {
 	
 	@Autowired
 	private DirEtablissementDAO dirEtablissementDAO;
+	
+	@Autowired
+	private DirEtudesDAO dirEtudesDAO;
 
 	public List<Notification> getAllNotifications() {
 		List<Notification> listeNotifications = notificationDAO.getAllNotifications();
@@ -41,8 +46,17 @@ public class ServiceNotification {
 		return dirEtablissement;
 	}
 	
-	public void addNotification(Notification notification) {
-		notificationDAO.addNotification(notification);
+	public DirEtudes getDirEtudesById(Integer id) {
+		DirEtudes dirEtudes = dirEtudesDAO.getDirEtudesById(id);
+		return dirEtudes;
+	}
+	
+	public void addNotificationForAll(Notification notification) {
+		notificationDAO.addNotificationForAll(notification);
+	}
+	
+	public void addNotificationForFiliere(Notification notification, Integer idFiliere) {
+		notificationDAO.addNotificationForFiliere(notification, idFiliere);
 	}
 	
 	public void supprNotification(Integer id) {

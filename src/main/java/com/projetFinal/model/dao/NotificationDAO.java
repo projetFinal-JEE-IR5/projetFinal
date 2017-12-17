@@ -24,8 +24,14 @@ public class NotificationDAO {
 		return list;
 	}
 
-	public void addNotification(Notification notification) {
+	public void addNotificationForAll(Notification notification) {
 		em.persist(notification);
+		
+	}
+	
+	public void addNotificationForFiliere(Notification notification, Integer idFilière) {
+		em.persist(notification);
+		
 	}
 	
 	public List<Notification> getNotificationsByIdEtu(Integer id) {

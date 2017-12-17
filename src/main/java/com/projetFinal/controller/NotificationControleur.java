@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.projetFinal.model.metier.DirEtablissement;
+import com.projetFinal.model.metier.DirEtudes;
 import com.projetFinal.model.metier.Notification;
 import com.projetFinal.service.dao.ServiceNotification;
 
@@ -135,7 +136,7 @@ public class NotificationControleur {
 		long dateHeureNotif = Long.valueOf(formater.format(date));
 		//long dateHeureProbleme = 1509380153;
 		Notification newNotification = new Notification(null, dateHeureNotif, contenu, null, dirEtablissement);
-		serviceNotification.addNotification(newNotification);
+		serviceNotification.addNotificationForAll(newNotification);
 		//on affiche la nouvelle liste de notif
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
 		List<String> listeEmetteur = new ArrayList<String>();
@@ -177,14 +178,14 @@ public class NotificationControleur {
 	@PostMapping("/ajouterNotificationDirEtu")
 	public String envoyerNotificationFiliere(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		String contenu = formValues.get("contenu");
-		DirEtablissement dirEtablissement = serviceNotification.getDirEtaById(session.getCurrentUserId());
+		DirEtudes dirEtudes = serviceNotification.getDirEtudesById(session.getCurrentUserId());
 		String format = "ddMMyyHmmss"; 
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureNotif = Long.valueOf(formater.format(date));
 		//long dateHeureProbleme = 1509380153;
-		Notification newNotification = new Notification(null, dateHeureNotif, contenu, null, dirEtablissement);
-		serviceNotification.addNotification(newNotification);
+		Notification newNotification = new Notification(null, dateHeureNotif, contenu, dirEtudes, null);
+		serviceNotification.addNotificationForAll(newNotification);
 		//on affiche la nouvelle liste de notif
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
 		List<String> listeEmetteur = new ArrayList<String>();
