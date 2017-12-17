@@ -97,7 +97,8 @@ public class ProblemeController {
 	}	
 	
 	@GetMapping("/supprProblemesResolus")
-	public String supprimerProblemesResolus(Map<String, Object> model) {		
+	public String supprimerProblemesResolus(Map<String, Object> model) {	
+		//TODO corriger : il y a un probleme de contrainte
 		serviceProbleme.deleteProblemesResolus();
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);

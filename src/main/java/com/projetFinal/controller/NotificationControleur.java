@@ -217,6 +217,21 @@ public class NotificationControleur {
 	
 	@PostMapping("/afficherNotificationsDirEta")
 	public String supprNotificationsDirEta(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
+		//TODO corriger : il y a un probleme de contrainte
+		Integer idNotif = Integer.parseInt(formValues.get("idNotif"));
+		serviceNotification.supprNotification(idNotif);
+		List<Notification> listeNotification = serviceNotification.getAllNotifications();
+		model.put("listeNotification", listeNotification);
+		String action = "afficherNotificationsDirEta";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
+	}
+	
+	@PostMapping("/afficherNotificationsDirEtu")
+	public String supprNotificationsDirEtu(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
+		//TODO corriger : il y a un probleme de contrainte
 		Integer idNotif = Integer.parseInt(formValues.get("idNotif"));
 		serviceNotification.supprNotification(idNotif);
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();

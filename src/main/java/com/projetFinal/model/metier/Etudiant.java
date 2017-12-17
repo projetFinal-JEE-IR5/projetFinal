@@ -35,13 +35,17 @@ public class Etudiant {
 	private Filiere filiere;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "Voter", joinColumns = { @JoinColumn(name = "id_etudiant") }, inverseJoinColumns = {
-			@JoinColumn(name = "id_probleme") })
+	@JoinTable(
+			name = "Voter", 
+			joinColumns = { @JoinColumn(name = "id_etudiant") }, 
+			inverseJoinColumns = { @JoinColumn(name = "id_probleme") })
 	Set<Probleme> problemes = new HashSet<>();
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "Recevoir", joinColumns = { @JoinColumn(name = "id_etudiant") }, inverseJoinColumns = {
-			@JoinColumn(name = "id_notification") })
+	@JoinTable(
+			name = "Recevoir",
+			joinColumns = { @JoinColumn(name = "id_etudiant") }, 
+			inverseJoinColumns = { @JoinColumn(name = "id_notification") })
 	Set<Notification> notifications = new HashSet<>();
 
 	public Etudiant() {
