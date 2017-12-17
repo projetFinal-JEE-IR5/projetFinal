@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -34,7 +33,8 @@ public class ProblemeDAO {
 	}
 		
 	public void deleteProblemesResolus() {
-		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p join fetch p.status s where s.idStatus=2", Probleme.class);
+		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p "
+				+ "join fetch p.status s where s.idStatus=2", Probleme.class);
 		List<Probleme> list = q.getResultList();
 		for (Probleme probleme : list) {
 			em.remove(probleme);

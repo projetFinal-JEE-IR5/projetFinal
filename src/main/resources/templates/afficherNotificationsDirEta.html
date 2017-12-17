@@ -7,7 +7,6 @@
 	<div class="starter-template">
 		<h1>Notifications</h1>
 		<br></br>
-		<form action="post">
 		<table>
 			<thead>
 				<tr>
@@ -22,13 +21,19 @@
 					<td th:text="${listeNotification[i].dateHeureNotif}"></td>
 					<td th:text="${listeEmetteur[i]}"></td>
 					<td th:text="${listeNotification[i].contenu}"></td>
-					<td><button type="submit" name="idNotif" th:value="*{listeNotification[i].idNotification}">-</button></td>
+					<td>
+						<form method="post">
+							<input type="hidden" name="idNotif" th:value="*{listeNotification[i].idNotification}"/>
+							<button type="submit">-</button>
+						</form>
+					</td>
 				</tr>
 			</tbody>
 		</table>
-		</form>
-		<br></br> <a href="/notification/ajouterNotificationDirEta"><input
-			type="button" name="addNotif" value="Envoyer une notification" /></a>
+		<br></br>
+		<a href="/notification/ajouterNotificationDirEta">
+		<input type="button" name="addNotif" value="Envoyer une notification" />
+		</a>
 	</div>
 </div>
 
