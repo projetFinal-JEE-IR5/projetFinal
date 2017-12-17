@@ -1,5 +1,6 @@
 package com.projetFinal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,25 @@ public class NotificationControleur {
 	@GetMapping("/afficherNotificationsEtu")
 	public String afficherNotificationsEtu(Map<String, Object> model) {
 		List<Notification> listeNotification = serviceNotification.getNotificationsByIdEtu(session.getCurrentUserId());
+		List<String> listeEmetteur = new ArrayList<String>();
+		List<Integer> compteur = new ArrayList<Integer>();
+		for (Notification notification : listeNotification) {
+			try {
+				listeEmetteur.add(notification.getDir_etablissement().getPrenom()+" "+notification.getDir_etablissement().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			try {
+				listeEmetteur.add(notification.getDir_etudes().getPrenom()+" "+notification.getDir_etudes().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		for(Integer i=0;i<listeEmetteur.size();i++) {
+			compteur.add(i);
+		}
+		model.put("compteur", compteur);
+		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
 		String action = "afficherNotificationsEtu";
 		model.put("action", action);
@@ -39,17 +59,55 @@ public class NotificationControleur {
 	@GetMapping("/afficherNotificationsDirEtu")
 	public String afficherNotificationsDirEtu(Map<String, Object> model) {
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
+		List<String> listeEmetteur = new ArrayList<String>();
+		List<Integer> compteur = new ArrayList<Integer>();
+		for (Notification notification : listeNotification) {
+			try {
+				listeEmetteur.add(notification.getDir_etablissement().getPrenom()+" "+notification.getDir_etablissement().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			try {
+				listeEmetteur.add(notification.getDir_etudes().getPrenom()+" "+notification.getDir_etudes().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		for(Integer i=0;i<listeEmetteur.size();i++) {
+			compteur.add(i);
+		}
+		model.put("compteur", compteur);
+		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
 		String action = "afficherNotificationsDirEtu";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
-		return template; 
+		return template;
 	}
 	
 	@GetMapping("/afficherNotificationsDirEta")
 	public String afficherNotificationsDirEta(Map<String, Object> model) {
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
+		List<String> listeEmetteur = new ArrayList<String>();
+		List<Integer> compteur = new ArrayList<Integer>();
+		for (Notification notification : listeNotification) {
+			try {
+				listeEmetteur.add(notification.getDir_etablissement().getPrenom()+" "+notification.getDir_etablissement().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			try {
+				listeEmetteur.add(notification.getDir_etudes().getPrenom()+" "+notification.getDir_etudes().getNom());
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		for(Integer i=0;i<listeEmetteur.size();i++) {
+			compteur.add(i);
+		}
+		model.put("compteur", compteur);
+		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
 		String action = "afficherNotificationsDirEta";
 		model.put("action", action);
@@ -112,6 +170,19 @@ public class NotificationControleur {
 		List<Notification> listeNotification = serviceNotification.getAllNotifications();
 		model.put("listeNotification", listeNotification);
 		String action = "afficherNotificationsDirEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
+	}
+	
+	@PostMapping("/afficherNotificationsDirEta")
+	public String supprNotificationsDirEta(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
+		Integer idNotif = Integer.parseInt(formValues.get("idNotif"));
+		serviceNotification.supprNotification(idNotif);
+		List<Notification> listeNotification = serviceNotification.getAllNotifications();
+		model.put("listeNotification", listeNotification);
+		String action = "afficherNotificationsDirEta";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);

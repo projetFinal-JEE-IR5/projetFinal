@@ -14,6 +14,7 @@ import com.projetFinal.model.dao.EtudiantDAO;
 import com.projetFinal.model.dao.ProblemeDAO;
 import com.projetFinal.model.dao.StatusDAO;
 import com.projetFinal.model.metier.Etudiant;
+import com.projetFinal.model.metier.Notification;
 import com.projetFinal.model.metier.Probleme;
 import com.projetFinal.model.metier.Status;
 
@@ -40,16 +41,11 @@ public class ProblemeController {
 	@GetMapping("/afficherProblemesEtu")
 	public String afficherProblemesEtu(Map<String, Object> model) {
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
-//		List<Integer> listNbVotes = new ArrayList<Integer>();
-//		for (Probleme probleme : listProblemes) {
-//			listNbVotes.add(problemeDAO.getNbVotesProbleme(probleme.getIdProbleme()));
-//		}
 		/*
 		for (Probleme probleme : listProblemes) {
 			String dateHeure=Long.toString(probleme.getDateHeureProbleme());
 			dateHeure=dateHeure.substring(0, 2)+"/"+dateHeure.substring(2, 4)+"/"+dateHeure.substring(4, 6)+" "+dateHeure.substring(6, 7)+":"+dateHeure.substring(7, 9)+":"+dateHeure.substring(9, 11);
 		*/
-//		model.put("listNbVotes", listNbVotes);
 		model.put("listProblemes", listProblemes);
 		String action = "afficherProblemesEtu";
 		model.put("action", action);
@@ -100,7 +96,7 @@ public class ProblemeController {
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureProbleme = Long.valueOf(formater.format(date));
 		//long dateHeureProbleme = 1509380153;
-		Probleme unProbleme = new Probleme(null, objet, contenu, status, etudiant, dateHeureProbleme);
+		Probleme unProbleme = new Probleme(null, objet, contenu, status, etudiant, dateHeureProbleme, 0);
 		problemeDAO.addProbleme(unProbleme);
 		//on affiche la nouvelle liste de pb
 		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
@@ -165,4 +161,17 @@ public class ProblemeController {
 		model.put("typePersonne", currentTypePersonne);
 		return template;
 	}	
+	
+	@PostMapping("/afficherProblemesEtu")
+	public String addVoteProbleme(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
+		Integer idProbleme = Integer.parseInt(formValues.get("idProbleme"));
+		problemeDAO.addVoteProbleme(idProbleme);
+		List<Probleme> listProblemes = problemeDAO.getAllProblemes();
+		model.put("listProblemes", listProblemes);
+		String action = "afficherProblemesEtu";
+		model.put("action", action);
+		String currentTypePersonne = session.getCurrentTypePersonne();
+		model.put("typePersonne", currentTypePersonne);
+		return template;
+	}
 }

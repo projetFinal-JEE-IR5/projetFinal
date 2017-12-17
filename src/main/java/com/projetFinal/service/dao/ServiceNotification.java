@@ -44,4 +44,8 @@ public class ServiceNotification {
 	public void addNotification(Notification notification) {
 		notificationDAO.addNotification(notification);
 	}
+	
+	public void supprNotification(Integer id) {
+		notificationDAO.supprNotificationById(id);
+	}
 }

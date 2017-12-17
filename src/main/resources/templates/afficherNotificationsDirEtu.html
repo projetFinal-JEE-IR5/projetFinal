@@ -7,6 +7,7 @@
 	<div class="starter-template">
 		<h1>Notifications</h1>
 		<br></br>
+		<form action="post">
 		<table>
 			<thead>
 				<tr>
@@ -17,15 +18,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="item : ${listeNotification}">
-					<td th:text="${item.dateHeureNotif}"></td>
-					<!-- <td th:text="${item.dirEtudes.prenom}+' '+${item.dirEtudes.nom}"></td> -->
-					<td></td>
-					<td th:text="${item.contenu}"></td>
-					<td><button>-</button></td>
+				<tr th:each="i : ${compteur}">
+					<td th:text="${listeNotification[i].dateHeureNotif}"></td>
+					<td th:text="${listeEmetteur[i]}"></td>
+					<td th:text="${listeNotification[i].contenu}"></td>
+					<td><button type="submit" name="idNotif" th:value="*{listeNotification[i].idNotification}">-</button></td>
 				</tr>
 			</tbody>
 		</table>
+		</form>
 		<br></br>
 		<a href="/notification/ajouterNotificationDirEtu">
 		<input type="button" name="addNotif" value="Envoyer une notification" />

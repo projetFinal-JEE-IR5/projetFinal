@@ -31,6 +31,8 @@ public class Probleme {
 	private Etudiant etudiant;
 	@Basic
 	private long dateHeureProbleme;
+	@Basic
+	private Integer nbVote;
 
 	@ManyToMany(mappedBy = "problemes")
 	private Set<Etudiant> etudiants = new HashSet<>();
@@ -39,7 +41,7 @@ public class Probleme {
 	}
 
 	public Probleme(Integer idProbleme, String objet, String contenu, Status status, Etudiant etudiant,
-			long dateHeureProbleme) {
+			long dateHeureProbleme, Integer nbVote) {
 		super();
 		this.idProbleme = idProbleme;
 		this.objet = objet;
@@ -47,10 +49,11 @@ public class Probleme {
 		this.status = status;
 		this.etudiant = etudiant;
 		this.dateHeureProbleme = dateHeureProbleme;
+		this.nbVote = nbVote;
 	}
 
 	public Probleme(Integer idProbleme, String objet, String contenu, Status status, Etudiant etudiant,
-			long dateHeureProbleme, Set<Etudiant> etudiants) {
+			long dateHeureProbleme, Set<Etudiant> etudiants, Integer nbVote) {
 		super();
 		this.idProbleme = idProbleme;
 		this.objet = objet;
@@ -59,6 +62,15 @@ public class Probleme {
 		this.etudiant = etudiant;
 		this.dateHeureProbleme = dateHeureProbleme;
 		this.etudiants = etudiants;
+		this.nbVote = nbVote;
+	}
+
+	public Integer getNbVote() {
+		return nbVote;
+	}
+
+	public void setNbVote(Integer nbVote) {
+		this.nbVote = nbVote;
 	}
 
 	public Integer getIdProbleme() {

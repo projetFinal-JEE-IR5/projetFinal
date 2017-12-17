@@ -12,12 +12,15 @@
 				<tr>
 					<td>Date - Heure</td>
 					<td>Envoyé par</td>
-					<td>Objet</td>
 					<td>Contenu</td>
-					<td>Supprimer</td>
 				</tr>
 			</thead>
 			<tbody>
+				<tr th:each="i : ${compteur}">
+					<td th:text="${listeNotification[i].dateHeureNotif}"></td>
+					<td th:text="${listeEmetteur[i]}"></td>
+					<td th:text="${listeNotification[i].contenu}"></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

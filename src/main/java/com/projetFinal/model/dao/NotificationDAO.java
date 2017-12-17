@@ -30,16 +30,14 @@ public class NotificationDAO {
 	
 	public List<Notification> getNotificationsByIdEtu(Integer id) {
 		TypedQuery<Notification> q = em.createQuery("select n from Notification n \r\n" + 
-				"inner join recevoir r on r.idNotification=n.idNotification where r.idEtudiant=:id", Notification.class);
+				"join fetch n.etudiants e where e.idEtudiant=:id", Notification.class);
+		q.setParameter("id", id);
 		List<Notification> list = q.getResultList();
 		return list;
 	}
 		
-	public void deleteProblemesResolus() {
-		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p inner join Status s on p.idStatus=s.idStatus inner join Voter v on p.idProbleme=v.idProbleme where s.idStatus=2", Probleme.class);
-		List<Probleme> list = q.getResultList();
-		for (Probleme probleme : list) {
-			em.remove(probleme);
-		}
+	public void supprNotificationById(Integer id) {
+		Notification notification = em.find(Notification.class, id);
+		em.remove(notification);		
 	}
 }
