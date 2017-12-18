@@ -35,17 +35,16 @@ public class RecevoirDAO {
 		em.persist(unRecevoir);
 	}
 	
-	public void supprRecevoirById(Integer id) {
-		Recevoir recevoir = em.find(Recevoir.class, id);
-		em.remove(recevoir);
+	public void supprRecepteurs(List<Recevoir> listeRecepteurs) {
+		for (Recevoir recepteur : listeRecepteurs) {
+			em.remove(recepteur);
+		}
 	}
 	
-	public Recevoir getRecevoirById(RecevoirPK pRecevoirPK) {
-	    return em.find(Recevoir.class,pRecevoirPK);
+	public List<Recevoir> getRecepteursByIdNotif(Integer idNotif) {
+		TypedQuery<Recevoir> q = em.createQuery("select r from Recevoir r where r.idRecevoir.idNotification=:idNotif", Recevoir.class);
+		q.setParameter("idNotif", idNotif);
+		List<Recevoir> listeRecepteurs = q.getResultList();
+		return listeRecepteurs;
 	}
-	
-//	public Recevoir deleteRecevoir(Integer id) {
-//		Recevoir recevoir = ?? getRecevoirById(id);
-//		return em.remove(recevoir);
-//	}
 }

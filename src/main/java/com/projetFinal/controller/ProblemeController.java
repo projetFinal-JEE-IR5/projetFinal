@@ -3,6 +3,7 @@ package com.projetFinal.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.projetFinal.model.metier.Etudiant;
 import com.projetFinal.model.metier.Probleme;
 import com.projetFinal.model.metier.Status;
+import com.projetFinal.model.metier.Voter;
+import com.projetFinal.model.metier.VoterPK;
 import com.projetFinal.service.dao.ServiceProbleme;
 
 @Controller
@@ -99,6 +102,11 @@ public class ProblemeController {
 	@GetMapping("/supprProblemesResolus")
 	public String supprimerProblemesResolus(Map<String, Object> model) {	
 		//TODO corriger : il y a un probleme de contrainte
+		List<Probleme> listeProblemesResolus = serviceProbleme.getProblemesResolus();
+		for (Probleme probleme : listeProblemesResolus) {
+			List<Voter> listeVotes = serviceProbleme.getVotesByIdProbleme(probleme.getIdProbleme());
+			serviceProbleme.supprVotes(listeVotes);
+		}
 		serviceProbleme.deleteProblemesResolus();
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
@@ -154,7 +162,14 @@ public class ProblemeController {
 	@PostMapping("/afficherProblemesEtu")
 	public String addVoteProbleme(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		Integer idProbleme = Integer.parseInt(formValues.get("idProbleme"));
-		serviceProbleme.addVoteProbleme(idProbleme);
+		Integer idEtudiant = session.getCurrentUserId();
+		try {
+			Voter vote = serviceProbleme.getVoterByIdEtuIdPb(idEtudiant, idProbleme);
+			model.put("message", "vous ne pouvez voter qu'une seule fois pour un problème");
+		}catch (Exception e) {
+			serviceProbleme.addVoter(new Voter(new VoterPK(idEtudiant,idProbleme)));
+			serviceProbleme.addVoteProbleme(idProbleme);
+		}
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
 		String action = "afficherProblemesEtu";

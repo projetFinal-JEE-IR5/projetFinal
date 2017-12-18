@@ -12,7 +12,7 @@ public class Recevoir {
 	@EmbeddedId
 	@AttributeOverrides({
 		@AttributeOverride(name = "id.notification", column = @Column(name = "id_notification")),
-		@AttributeOverride(name = "id.etudiant", column = @Column(name = "id_personne")) })
+		@AttributeOverride(name = "id.etudiant", column = @Column(name = "id_etudiant")) })
 	private RecevoirPK idRecevoir;
 
 	public Recevoir() {

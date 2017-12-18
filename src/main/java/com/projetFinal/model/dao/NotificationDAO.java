@@ -23,14 +23,8 @@ public class NotificationDAO {
 		return list;
 	}
 
-	public void addNotificationForAll(Notification notification) {
+	public void addNotification(Notification notification) {
 		em.persist(notification);
-		
-	}
-	
-	public void addNotificationForFiliere(Notification notification, Integer idFilière) {
-		em.persist(notification);
-		
 	}
 	
 	public List<Notification> getNotificationsByIdEtu(Integer id) {
@@ -42,15 +36,6 @@ public class NotificationDAO {
 	}
 		
 	public void supprNotificationById(Integer id) {
-//		TypedQuery<Notification> q = em.createQuery("select n from Notification n "
-//		+ "join fetch n.etudiants e where e.idEtudiant=:id", Notification.class);
-//		TypedQuery<Notification> q = em.createQuery("select n from Notification n "
-//				+ "join fetch n.etudiants e where e.idEtudiant=:id", Notification.class);
-//		q.setParameter("id", id);
-//		List<Notification> list = q.getResultList();
-//		for (Notification notification : list) {
-//			em.remove(notification);
-//		}
 		Notification notification = em.find(Notification.class, id);
 		em.remove(notification);
 	}
