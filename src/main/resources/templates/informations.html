@@ -7,14 +7,14 @@
 	<div class="starter-template">
 		<h1>Informations</h1>
 		<br></br>
-		<div th:text="'typePersonne : '+${role}"></div>
-		<div th:text="'login : '+${personne.login}"></div>
-		<div th:text="'prénom : '+${personne.prenom}"></div>
-		<div th:text="'nom : '+${personne.nom}"></div>
+		<div th:text="'Type de personne : '+${role}"></div>
+		<div th:text="'Login : '+${personne.login}"></div>
+		<div th:text="'Prénom : '+${personne.prenom}"></div>
+		<div th:text="'NOM : '+${personne.nom}"></div>
 		<div th:if="${typePersonne} != 'dirEtablissement'"
-			th:text="'filière : '+${personne.filiere.nomFiliere}"></div>
+			th:text="'Filière : '+${personne.filiere.nomFiliere}"></div>
 		<div th:if="${typePersonne} == 'etudiant'"
-			th:text="'nombre de problèmes autorisé par jour : '+${personne.nbProbAutoriseJour}"></div>
+			th:text="'Nombre de problèmes autorisé par jour : '+${personne.nbProbAutoriseJour}"></div>
 	</div>
 </div>
 

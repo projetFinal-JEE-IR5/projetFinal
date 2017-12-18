@@ -3,7 +3,6 @@ package com.projetFinal.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.hql.internal.ast.tree.IsNotNullLogicOperatorNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,13 +31,8 @@ public class ProblemeController {
 	@GetMapping("/afficherProblemesEtu")
 	public String afficherProblemesEtu(Map<String, Object> model) {
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
-		/*
-		for (Probleme probleme : listProblemes) {
-			String dateHeure=Long.toString(probleme.getDateHeureProbleme());
-			dateHeure=dateHeure.substring(0, 2)+"/"+dateHeure.substring(2, 4)+"/"+dateHeure.substring(4, 6)+" "+dateHeure.substring(6, 7)+":"+dateHeure.substring(7, 9)+":"+dateHeure.substring(9, 11);
-		*/
 		model.put("listProblemes", listProblemes);
-		String action = "afficherProblemesEtu";
+		String action = "afficherProblemes";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -49,7 +43,7 @@ public class ProblemeController {
 	public String afficherProblemesDirEtu(Map<String, Object> model) {
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		String action = "afficherProblemesDirEtu";
+		String action = "afficherProblemes";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -60,7 +54,7 @@ public class ProblemeController {
 	public String afficherProblemesDirEta(Map<String, Object> model) {
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		String action = "afficherProblemesDirEta";
+		String action = "afficherProblemes";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -82,17 +76,17 @@ public class ProblemeController {
 		String contenu = formValues.get("contenu");
 		Etudiant etudiant = serviceProbleme.getEtudiantById(session.getCurrentUserId());
 		Status status = serviceProbleme.getStatusById(1);
-		String format = "ddMMyyHmmss"; 
+		String format = "ddMMyyHHmmss"; 
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureProbleme = Long.valueOf(formater.format(date));
-		//long dateHeureProbleme = 1509380153;
+		//long dateHeureProbleme = 111217154156;
 		Probleme unProbleme = new Probleme(null, objet, contenu, status, etudiant, dateHeureProbleme, 0);
 		serviceProbleme.addProbleme(unProbleme);
 		//on affiche la nouvelle liste de pb
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		String action = "afficherProblemesEtu";
+		String action = "afficherProblemes";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -110,7 +104,7 @@ public class ProblemeController {
 		serviceProbleme.deleteProblemesResolus();
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		String action = "afficherProblemesDirEta";
+		String action = "afficherProblemes";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -119,7 +113,7 @@ public class ProblemeController {
 	
 	@GetMapping("/limiterNbPbDirEtu")
 	public String limiterNbPbDirEtu(Map<String, Object> model) {
-		String action = "limiterNbPbDirEtu";
+		String action = "limiterNbProb";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -131,7 +125,7 @@ public class ProblemeController {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
 		serviceProbleme.setNbPbAutorise(nbPb);
 		model.put("message", "Limite validée");
-		String action = "limiterNbPbDirEtu";
+		String action = "limiterNbProb";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -140,7 +134,7 @@ public class ProblemeController {
 	
 	@GetMapping("/limiterNbPbDirEta")
 	public String limiterNbPbDirEta(Map<String, Object> model) {
-		String action = "limiterNbPbDirEta";
+		String action = "limiterNbProb";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -152,7 +146,7 @@ public class ProblemeController {
 		Integer nbPb = Integer.parseInt(formValues.get("nbPb"));
 		serviceProbleme.setNbPbAutorise(nbPb);
 		model.put("message", "Limite validée");
-		String action = "limiterNbPbDirEta";
+		String action = "limiterNbProb";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -172,7 +166,7 @@ public class ProblemeController {
 		}
 		List<Probleme> listProblemes = serviceProbleme.getAllProblemes();
 		model.put("listProblemes", listProblemes);
-		String action = "afficherProblemesEtu";
+		String action = "afficherProblemes";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);

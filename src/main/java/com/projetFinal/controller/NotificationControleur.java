@@ -53,7 +53,7 @@ public class NotificationControleur {
 		model.put("compteur", compteur);
 		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
-		String action = "afficherNotificationsEtu";
+		String action = "afficherNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -83,7 +83,7 @@ public class NotificationControleur {
 		model.put("compteur", compteur);
 		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
-		String action = "afficherNotificationsDirEtu";
+		String action = "afficherNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -113,7 +113,7 @@ public class NotificationControleur {
 		model.put("compteur", compteur);
 		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
-		String action = "afficherNotificationsDirEta";
+		String action = "afficherNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -122,7 +122,7 @@ public class NotificationControleur {
 	
 	@GetMapping("/ajouterNotificationDirEta")
 	public String ajouterNotificationDirEta(Map<String, Object> model) {
-		String action = "ajouterNotificationDirEta";
+		String action = "ajouterNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -133,7 +133,7 @@ public class NotificationControleur {
 	public String envoyerNotificationAllEtu(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		String contenu = formValues.get("contenu");
 		DirEtablissement dirEtablissement = serviceNotification.getDirEtaById(session.getCurrentUserId());
-		String format = "ddMMyyHmmss";
+		String format = "ddMMyyHHmmss";
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureNotif = Long.valueOf(formater.format(date));
@@ -167,7 +167,7 @@ public class NotificationControleur {
 		model.put("compteur", compteur);
 		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
-		String action = "afficherNotificationsDirEta";
+		String action = "afficherNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -176,7 +176,7 @@ public class NotificationControleur {
 	
 	@GetMapping("/ajouterNotificationDirEtu")
 	public String ajouterNotificationDirEtu(Map<String, Object> model) {
-		String action = "ajouterNotificationDirEtu";
+		String action = "ajouterNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -187,7 +187,7 @@ public class NotificationControleur {
 	public String envoyerNotificationFiliere(@RequestParam Map<String, String> formValues, Map<String, Object> model) {
 		String contenu = formValues.get("contenu");
 		DirEtudes dirEtudes = serviceNotification.getDirEtudesById(session.getCurrentUserId());
-		String format = "ddMMyyHmmss"; 
+		String format = "ddMMyyHHmmss"; 
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 		long dateHeureNotif = Long.valueOf(formater.format(date));
@@ -221,7 +221,7 @@ public class NotificationControleur {
 		model.put("compteur", compteur);
 		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
-		String action = "afficherNotificationsDirEtu";
+		String action = "ajouterNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -256,7 +256,7 @@ public class NotificationControleur {
 		model.put("compteur", compteur);
 		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
-		String action = "afficherNotificationsDirEta";
+		String action = "afficherNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);
@@ -289,7 +289,7 @@ public class NotificationControleur {
 		model.put("compteur", compteur);
 		model.put("listeEmetteur", listeEmetteur);
 		model.put("listeNotification", listeNotification);
-		String action = "afficherNotificationsDirEtu";
+		String action = "afficherNotif";
 		model.put("action", action);
 		String currentTypePersonne = session.getCurrentTypePersonne();
 		model.put("typePersonne", currentTypePersonne);

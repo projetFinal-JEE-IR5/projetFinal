@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 @Table(name = "Notification")
 public class Notification {
@@ -55,11 +57,12 @@ public class Notification {
 		this.dir_etablissement = dir_etablissement;
 		this.etudiants = etudiants;
 	}
-
+	
 	public Integer getIdNotification() {
 		return idNotification;
 	}
-
+	
+	@JsonView(Views.Resume.class)
 	public void setIdNotification(Integer idNotification) {
 		this.idNotification = idNotification;
 	}
@@ -67,7 +70,8 @@ public class Notification {
 	public long getDateHeureNotif() {
 		return dateHeureNotif;
 	}
-
+	
+	@JsonView(Views.Detaille.class)
 	public void setDateHeureNotif(long dateHeureNotif) {
 		this.dateHeureNotif = dateHeureNotif;
 	}
@@ -76,6 +80,7 @@ public class Notification {
 		return contenu;
 	}
 
+	@JsonView(Views.Resume.class)
 	public void setContenu(String contenu) {
 		this.contenu = contenu;
 	}
@@ -83,7 +88,8 @@ public class Notification {
 	public DirEtudes getDir_etudes() {
 		return dir_etudes;
 	}
-
+	
+	@JsonView(Views.Detaille.class)
 	public void setDir_etudes(DirEtudes dir_etudes) {
 		this.dir_etudes = dir_etudes;
 	}
@@ -92,6 +98,7 @@ public class Notification {
 		return dir_etablissement;
 	}
 
+	@JsonView(Views.Detaille.class)
 	public void setDir_etablissement(DirEtablissement dir_etablissement) {
 		this.dir_etablissement = dir_etablissement;
 	}
@@ -100,6 +107,7 @@ public class Notification {
 		return etudiants;
 	}
 
+	@JsonView(Views.Detaille.class)
 	public void setEtudiants(Set<Etudiant> etudiants) {
 		this.etudiants = etudiants;
 	}

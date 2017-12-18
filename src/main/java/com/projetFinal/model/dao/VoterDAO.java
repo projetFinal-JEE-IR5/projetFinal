@@ -9,9 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.projetFinal.model.metier.Recevoir;
 import com.projetFinal.model.metier.Voter;
-import com.projetFinal.model.metier.VoterPK;
 
 @Repository
 @Transactional

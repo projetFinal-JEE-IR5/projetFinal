@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:fragment="afficherProblemes" class="container">
+
+	<div class="starter-template">
+		<h1>Liste des problèmes</h1>
+		<br></br>
+		<h2 th:if="${typePersonne} == 'etudiant'" th:text="${message}"></h2>
+		<table>
+			<thead>
+				<tr>
+					<td>Date - Heure</td>
+					<td>Status</td>
+					<td>Soumis par</td>
+					<td>Objet</td>
+					<td>Contenu</td>
+					<td>Nb Vote</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${listProblemes}">
+					<td th:text="${#strings.substring(item.dateHeureProbleme,0,2)}+
+					'/'+${#strings.substring(item.dateHeureProbleme,2,4)}+
+					'/'+${#strings.substring(item.dateHeureProbleme,4,6)}+
+					' '+${#strings.substring(item.dateHeureProbleme,6,8)}+
+					':'+${#strings.substring(item.dateHeureProbleme,8,10)}+
+					':'+${#strings.substring(item.dateHeureProbleme,10,12)}"></td>
+					<td th:text="${item.status.libelle}"></td>
+					<td th:text="${item.etudiant.prenom}+' '+${item.etudiant.nom}"></td>
+					<td th:text="${item.objet}"></td>
+					<td th:text="${item.contenu}"></td>
+					<td th:text="${item.nbVote}"></td>
+					<td th:if="${typePersonne} == 'etudiant'">
+						<form method="post">
+							<input type="hidden" name="idProbleme" th:value="*{item.idProbleme}"/>
+							<button type="submit">+</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br></br>
+		<a th:if="${typePersonne} == 'etudiant'" href="/problemes/ajouterProbleme">
+		<input type="button" name="addPb" value="Soumettre un problème" />
+		</a>
+		<a th:if="${typePersonne} != 'etudiant'" href="/problemes/supprProblemesResolus">
+		<input type="button" name="delPb" value="Supprimer problèmes résolus" />
+		</a>
+		<br></br>
+		<br></br>
+		<a th:if="${typePersonne} == 'dirEtablissement'" href="/problemes/limiterNbPbDirEta">
+		<input type="button" name="limnbPb" value="Limiter nb problème" />
+		</a>
+		<a th:if="${typePersonne} == 'dirEtudes'" href="/problemes/limiterNbPbDirEtu">
+		<input type="button" name="limnbPb" value="Limiter nb problème" />
+		</a>
+	</div>
+</div>
+
+</html>

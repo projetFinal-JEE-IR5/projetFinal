@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<div th:fragment="afficherNotif" class="container">
+
+	<div class="starter-template">
+		<h1>Notifications</h1>
+		<br></br>
+		<table>
+			<thead>
+				<tr>
+					<td>Date - Heure</td>
+					<td>Envoyé par</td>
+					<td>Contenu</td>
+					<td th:if="${typePersonne} != 'etudiant'">Supprimer</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="i : ${compteur}">
+					<td th:text="${#strings.substring(listeNotification[i].dateHeureNotif,0,2)}+
+					'/'+${#strings.substring(listeNotification[i].dateHeureNotif,2,4)}+
+					'/'+${#strings.substring(listeNotification[i].dateHeureNotif,4,6)}+
+					' '+${#strings.substring(listeNotification[i].dateHeureNotif,6,8)}+
+					':'+${#strings.substring(listeNotification[i].dateHeureNotif,8,10)}+
+					':'+${#strings.substring(listeNotification[i].dateHeureNotif,10,12)}"></td>
+					<td th:text="${listeEmetteur[i]}"></td>
+					<td th:text="${listeNotification[i].contenu}"></td>
+					<td th:if="${typePersonne} != 'etudiant'">
+						<form method="post">
+							<input type="hidden" name="idNotif"
+								th:value="*{listeNotification[i].idNotification}" />
+							<button type="submit">-</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br></br>
+		<a th:if="${typePersonne} == 'dirEtablissement'"
+		th:href="@{/notification/ajouterNotificationDirEta}">
+		<input type="button" name="addNotif" value="Envoyer une notification" /></a>
+		<a th:if="${typePersonne} == 'dirEtudes'"
+		th:href="@{/notification/ajouterNotificationDirEtu}">
+		<input type="button" name="addNotif" value="Envoyer une notification" /></a>
+	</div>
+</div>
+
+</html>
