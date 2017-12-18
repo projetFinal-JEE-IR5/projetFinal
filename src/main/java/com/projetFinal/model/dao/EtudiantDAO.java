@@ -31,8 +31,8 @@ public class EtudiantDAO {
 	}
 
 	public List<Etudiant> getEtudiantByFiliere(int idFiliere) {
-		TypedQuery<Etudiant> q = em.createQuery("select e from Etudiant e where e.idFiliere=:idFiliere",
-				Etudiant.class);
+		TypedQuery<Etudiant> q = em.createQuery("select e from Etudiant e where e.filiere.idFiliere=:idFiliere",Etudiant.class);
+		q.setParameter("idFiliere", idFiliere);
 		List<Etudiant> listeEtudiants = q.getResultList();
 		return listeEtudiants;
 	}

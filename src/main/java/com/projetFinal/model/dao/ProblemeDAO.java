@@ -31,6 +31,13 @@ public class ProblemeDAO {
 		Probleme probleme = em.find(Probleme.class, idProbleme);
 		probleme.setNbVote(probleme.getNbVote()+1);
 	}
+	
+	public List<Probleme> getProblemesResolus(){
+		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p "
+				+ "join fetch p.status s where s.idStatus=2", Probleme.class);
+		List<Probleme> list = q.getResultList();
+		return list;
+	}
 		
 	public void deleteProblemesResolus() {
 		TypedQuery<Probleme> q = em.createQuery("select p from Probleme p "

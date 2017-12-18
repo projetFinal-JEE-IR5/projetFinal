@@ -7,7 +7,7 @@
 	<div class="starter-template">
 		<h1>Liste des problèmes</h1>
 		<br></br>
-		<form action="post">
+		<h2 th:text="${message}"></h2>
 		<table>
 			<thead>
 				<tr>
@@ -27,11 +27,15 @@
 					<td th:text="${item.objet}"></td>
 					<td th:text="${item.contenu}"></td>
 					<td th:text="${item.nbVote}"></td>
-					<td><button type="submit" name="addVote" th:value="*{item.idProbleme}">+</button></td>
+					<td>
+						<form method="post">
+							<input type="hidden" name="idProbleme" th:value="*{item.idProbleme}"/>
+							<button type="submit">+</button>
+						</form>
+					</td>
 				</tr>
 			</tbody>
 		</table>
-		</form>
 		<br></br>
 		<a href="/problemes/ajouterProbleme">
 		<input type="button" name="addPb" value="Soumettre un problème" />

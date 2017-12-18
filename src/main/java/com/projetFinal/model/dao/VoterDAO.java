@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.projetFinal.model.metier.Recevoir;
 import com.projetFinal.model.metier.Voter;
 import com.projetFinal.model.metier.VoterPK;
 
@@ -24,28 +25,35 @@ public class VoterDAO {
 		return list;
 	}
 	
-	public Voter getVoterById(int id) {
+	public Voter getVoterById(Integer id) {
 		TypedQuery<Voter> q = em.createQuery("select s from Voter s where s.idVoter=:id", Voter.class);
 		q.setParameter("id", id);
 		Voter voter = q.getSingleResult();
 		return voter;
 	}
 	
-	public void addVoter(Voter unVoter) {
-		em.persist(unVoter);
+	public Voter getVoterByIdEtuIdPb(Integer idEtudiant, Integer idProbleme) {
+		TypedQuery<Voter> q = em.createQuery("select s from Voter s where s.idVoter.idEtudiant=:idEtudiant and s.idVoter.idProbleme=:idProbleme", Voter.class);
+		q.setParameter("idEtudiant", idEtudiant);
+		q.setParameter("idProbleme", idProbleme);
+		Voter voter = q.getSingleResult();
+		return voter;
 	}
 	
-	public void supprVoterById(Integer id) {
-		Voter voter = em.find(Voter.class, id);
-		em.remove(voter);
+	public void addVoter(Voter vote) {
+		em.persist(vote);
 	}
 	
-	public Voter getVoterById(VoterPK pVoterPK) {
-	    return em.find(Voter.class,pVoterPK);
+	public void supprVotes(List<Voter> listeVotes) {
+		for (Voter vote : listeVotes) {
+			em.remove(vote);
+		}
 	}
 	
-//	public Voter deleteVoter(Integer id) {
-//		Voter voter = ?? getVoterById(id);
-//		return em.remove(voter);
-//	}
+	public List<Voter> getVotesByIdProbleme(Integer idProbleme) {
+		TypedQuery<Voter> q = em.createQuery("select v from Voter v where v.idVoter.idProbleme=:idProbleme", Voter.class);
+		q.setParameter("idProbleme", idProbleme);
+		List<Voter> listeVotes = q.getResultList();
+		return listeVotes;
+	}
 }
