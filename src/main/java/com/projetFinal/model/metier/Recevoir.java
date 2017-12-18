@@ -5,14 +5,13 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 public class Recevoir {
 	@EmbeddedId
 	@AttributeOverrides({
 		@AttributeOverride(name = "id.notification", column = @Column(name = "id_notification")),
-		@AttributeOverride(name = "id.etudiant", column = @Column(name = "id_personne")) })
+		@AttributeOverride(name = "id.etudiant", column = @Column(name = "id_etudiant")) })
 	private RecevoirPK idRecevoir;
 
 	public Recevoir() {
